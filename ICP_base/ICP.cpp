@@ -165,9 +165,9 @@ void ICP<PointSource, PointTarget>::getTransLM()
 
 	Eigen::LevenbergMarquardt<TransfromEstimationLM, float> lm(function);
 
-	//Eigen::VectorXf x
+	Eigen::VectorXf x(16);
 
-	Eigen::Matrix<float,16,1> x;
+	//Eigen::Matrix<float,16,1> x;
 	for (int i(0); i < 4; i++)
 	{
 		for (int j(0); j < 4; j++)
@@ -178,7 +178,7 @@ void ICP<PointSource, PointTarget>::getTransLM()
 	//boost::shared_ptr<Eigen::Matrix<float, 16, 1> > xx;
 	//Eigen::Matrix<float, 16, 1>& xx;// (&x);
 	//xx = x;
-	//lm.minimize(x);
+	lm.minimize(x);
 	for (int i(0); i < 4; i++)
 	{
 		for (int j(0); j<4; j++)

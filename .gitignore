@@ -5,3 +5,5 @@
 *.exe
 Debug/ICP_base.pdb
 *.sdf
+*.pdb
+Debug/ICP_base.ilk

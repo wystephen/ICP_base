@@ -8,15 +8,17 @@ class FUNCTOR
 public:
 	typedef _Scalar Scalar;
 
-
-	
 	enum
 	{
 		InputsAtCompileTime = NX,
 		ValuesAtCompileTime = NY
 	};
 	typedef Eigen::Matrix<Scalar, InputsAtCompileTime, 1> InputType;
-	typedef Eigen::Matrix<Scalar, ValuesAtCompileTime, 1> ValueType;
+	typedef Eigen::Matrix<Scalar, 16, 1> ValueType;
+
+	//typedef Eigen::VectorXf InputType;
+	//typedef Eigen::VectorXf ValueTyep;
+
 	typedef Eigen::Matrix<Scalar, ValuesAtCompileTime, InputsAtCompileTime> JacobianType;
 
 	int m_inputs;
