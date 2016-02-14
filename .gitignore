@@ -1,3 +1,7 @@
 /ICP_base/Debug
 /ICP_base/*.pcd
 /ICP_base/*.sdf
+
+*.exe
+Debug/ICP_base.pdb
+*.sdf
