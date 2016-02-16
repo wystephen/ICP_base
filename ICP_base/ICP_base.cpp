@@ -33,21 +33,21 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	Eigen::Matrix4f transform_matrix = Eigen::Matrix4f::Identity();
 
-	double theta = M_PI / 4;
+	double theta = 0;// M_PI / 4 / 5;
 
 	transform_matrix(0, 0) = cos(theta);
 	transform_matrix(0, 1) = -sin(theta);
 	transform_matrix(1, 0) = sin(theta);
 	transform_matrix(1, 1) = cos(theta);
 
-	transform_matrix(0, 3) = 0.2;
+	transform_matrix(0, 3) = 0.01;
 
 	pcl::transformPointCloud(*pc, *pc_t, transform_matrix);
 	//before here,loaded pcd file,transfrom to anther one.
 
 	pcl::PointCloud<pcl::PointXYZ>  Final;
 	//pcl icp achive 
-	/*
+	/* *******************************/
 	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
 	icp.setInputSource(pc_t);
 	icp.setInputTarget(pc);
@@ -58,7 +58,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	icp.align(Final);
 
 	std::cout << icp.getFinalTransformation() << std::endl;
-	  */
+	  /*******************************************/
 	ICP<pcl::PointXYZ, pcl::PointXYZ> o_icp;
 	o_icp.setSource(pc_t);
 	o_icp.setTarget(pc);

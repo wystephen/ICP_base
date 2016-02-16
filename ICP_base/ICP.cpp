@@ -27,16 +27,16 @@ void ICP<PointSource, PointTarget>::setSource( const PointCloudConstPtr &in)
 template <typename PointSource, typename PointTarget>
 void ICP<PointSource, PointTarget>::setTarget( const PointCloudConstPtr &target)
 {
-	std::cout << "target" << std::endl;
-	std::cout << target->size() << std::endl;
+	//std::cout << "target" << std::endl;
+	//std::cout << target->size() << std::endl;
 	for (int k(0); k < target->size(); k++)
 	{
 		//std::cout << k << ":" << target->at(k) << std::endl;
 		target_ptr_->push_back(target->at(k));
 	}
-	std::cout << "setTarget end:" << std::endl;
+	//std::cout << "setTarget end:" << std::endl;
 	kdtree_target_ptr_->setInputCloud(target_ptr_);
-	std::cout << "kd_tree build" << std::endl;
+	//std::cout << "kd_tree build" << std::endl;
 }
 
 template <typename PointSource, typename PointTarget>
@@ -67,7 +67,8 @@ void ICP<PointSource, PointTarget>::computerTransformation(pcl::PointCloud<Point
 		simpleFindCorrespondence(input_transformed_ptr);
 
 		//solve transfrom LM;
-		getTransLM();
+		//getTransLM();
+		getTransQR();
 
 
 	}
@@ -77,6 +78,7 @@ void ICP<PointSource, PointTarget>::computerTransformation(pcl::PointCloud<Point
 template <typename PointSource, typename PointTarget>
 void ICP<PointSource, PointTarget>::transfromPointCloud(typename pcl::PointCloud<PointSource>::Ptr input, pcl::PointCloud<PointSource>& output, const Eigen::Matrix4f& transform_matrix)
 {
+	std::cout << "transfromPointCLoud" << std::endl;
 	Eigen::Vector4f pt(0.0, 0.0, 0.0, 1.0), pt_t;
 	Eigen::Matrix4f tr = transform_matrix.template cast<float>();
 
@@ -116,6 +118,8 @@ void ICP<PointSource, PointTarget>::transfromPointCloud(typename pcl::PointCloud
 template <typename PointSource, typename PointTarget>
 void ICP<PointSource, PointTarget>::simpleFindCorrespondence(typename  pcl::PointCloud<PointSource>::Ptr input)
 {
+
+	std::cout << "Find Correspondence" << std::endl;
 	corr_vector_.clear();
 
 	pcl::PointXYZ last_search_point_xyz, search_point_xyz;
@@ -129,7 +133,7 @@ void ICP<PointSource, PointTarget>::simpleFindCorrespondence(typename  pcl::Poin
 		search_point_xyz = input->at(index);
 		if ((pow((last_search_point_xyz.x - search_point_xyz.x), 2)
 			+ pow((last_search_point_xyz.y - search_point_xyz.y), 2)
-			+ pow((last_search_point_xyz.z - search_point_xyz.z), 2)) < threshold_distance_squre)
+			+ pow((last_search_point_xyz.z - search_point_xyz.z), 2)) < threshold_sperated_distance_squre)
 		{
 			continue;
 		}
@@ -137,10 +141,12 @@ void ICP<PointSource, PointTarget>::simpleFindCorrespondence(typename  pcl::Poin
 
 		if (kdtree_target_ptr_->nearestKSearch(search_point_xyz, 1, point_idx_vector, point_dis_vector) > 0)
 		{
-			if ((pow((last_search_point_xyz.x - input->at(point_idx_vector[0]).x), 2)
-					+ pow((last_search_point_xyz.y - input->at(point_idx_vector[0]).y), 2)
-					+ pow((last_search_point_xyz.z - input->at(point_idx_vector[0]).z), 2)) > threshold_distance_squre
-			)
+			//if ((pow((last_search_point_xyz.x - input->at(point_idx_vector[0]).x), 2)
+				//	+ pow((last_search_point_xyz.y - input->at(point_idx_vector[0]).y), 2)
+				//	+ pow((last_search_point_xyz.z - input->at(point_idx_vector[0]).z), 2)) > 
+				//	threshold_distance_squre
+
+			//)
 			{
 				last_search_point_xyz = input->at(point_idx_vector[0]);
 
@@ -190,3 +196,47 @@ void ICP<PointSource, PointTarget>::getTransLM()
 
 
 }
+
+
+template <typename PointSource, typename PointTarget>
+void ICP<PointSource, PointTarget>::getTransQR()
+{
+
+	std::cout << "get TransQR" << std::endl;
+	std::cout << "corre size:" << corr_vector_.size() << std::endl;
+	Eigen::MatrixXf A(corr_vector_.size(), 4);
+	Eigen::MatrixXf b(corr_vector_.size(), 4);
+
+	for (int i(0); i < corr_vector_.size(); i++)
+	{
+		
+			//A[i, 0] = corr_vector_[i].x1;
+			//A[i, 1] = corr_vector_[i].y1;
+			//A[i, 2] = corr_vector_[i].z1;
+			//A[i, 3] = 1.0;
+
+		b.row(i) << corr_vector_[i].x1, corr_vector_[i].y1, corr_vector_[i].z1, 1.0;
+		A.row(i) << corr_vector_[i].x2, corr_vector_[i].y2, corr_vector_[i].z2, 1.0;
+
+			//b[i, 0] = corr_vector_[i].x2;
+			//b[i, 1] = corr_vector_[i].y2;
+			//b[i, 2] = corr_vector_[i].z2;
+			//b[i, 3] = 1.0;
+
+	}
+	//Eigen::MatrixXf x = A.colPivHouseholderQr().solve(b);
+	//Eigen::MatrixXf x = A.jacobiSvd(Eigen::ComputeThinU | Eigen::ComputeThinV).solve(b);
+	Eigen::MatrixXf x = A.colPivHouseholderQr().solve(b);
+	std::cout << x << std::endl;
+	transform_matrix = x;
+
+
+}
+
+template <typename PointSource, typename PointTarget>
+void ICP<PointSource, PointTarget>::getTransQR_cu()
+{
+	//try to use cuda QR to solve the transform from source point to target point.
+
+}
+

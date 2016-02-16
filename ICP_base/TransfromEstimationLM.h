@@ -63,6 +63,9 @@ public:
 		//tmp = this;
 		//Eigen::NumericalDiff<TransfromEstimationLM> numDiff(*this);
 		//numDiff.df(x, jac);
+		
+		
+		/***********************************/
 		float h;
 		int nfev = 0;
 		const Eigen::VectorXf::Index n = 16;
@@ -76,8 +79,8 @@ public:
 		val2.resize(FUNCTOR::values());
 
 
-		operator ()(tx, val1);
-		nfev++;
+		//operator ()(tx, val1);
+		//nfev++;
 
 		for (int j(0); j < n; j++)
 		{
@@ -89,10 +92,14 @@ public:
 			tx[j] += h;
 			operator ()(tx, val2);
 			nfev++;
+			tx[j] -= (2 * h);
+			operator()(tx, val1);
+			nfev++;
 			tx[j] = x[j];
-			jac.col(j) = (val2 - val1) / h;
+			jac.col(j) = (val2 - val1) / (2*h);
 
 		}
+		/*******************************************************/
 		//std::cout << "jac"<<jac << std::endl;
 
 		
