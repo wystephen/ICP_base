@@ -33,14 +33,14 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	Eigen::Matrix4f transform_matrix = Eigen::Matrix4f::Identity();
 
-	double theta = 0;// M_PI / 4 / 5;
+	double theta =  M_PI /4.0;
 
 	transform_matrix(0, 0) = cos(theta);
 	transform_matrix(0, 1) = -sin(theta);
 	transform_matrix(1, 0) = sin(theta);
 	transform_matrix(1, 1) = cos(theta);
 
-	transform_matrix(0, 3) = 0.01;
+	transform_matrix(0, 3) = 0.1;
 
 	pcl::transformPointCloud(*pc, *pc_t, transform_matrix);
 	//before here,loaded pcd file,transfrom to anther one.
@@ -64,7 +64,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	o_icp.setTarget(pc);
 
 	std::cout << "begin oicp cptran func" << std::endl;
-	o_icp.computerTransformation(Final, Eigen::Matrix4f::Identity());
+	o_icp.computerTransformation(Final, icp.getFinalTransformation());
 
 
 

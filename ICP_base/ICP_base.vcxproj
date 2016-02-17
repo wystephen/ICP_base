@@ -105,7 +105,13 @@
     <ClCompile Include="TransfromEstimationLM.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="1.pcd" />
     <None Include="ClassDiagram.cd" />
+    <None Include="write_capture1_B.pcd" />
+    <None Include="write_capture2_B.pcd" />
+    <None Include="write_capture3_B.pcd" />
+    <None Include="write_capture4_B.pcd" />
+    <None Include="write_capture5_B.pcd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

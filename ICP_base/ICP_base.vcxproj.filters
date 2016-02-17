@@ -59,5 +59,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="1.pcd">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="write_capture1_B.pcd">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="write_capture2_B.pcd">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="write_capture3_B.pcd">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="write_capture4_B.pcd">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="write_capture5_B.pcd">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

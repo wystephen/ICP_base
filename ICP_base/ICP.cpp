@@ -70,6 +70,8 @@ void ICP<PointSource, PointTarget>::computerTransformation(pcl::PointCloud<Point
 		//getTransLM();
 		getTransQR();
 
+		transfromPointCloud(input_transformed_ptr, *input_transformed_ptr, transform_matrix);
+
 
 	}
 	while (!converged_);
@@ -135,7 +137,7 @@ void ICP<PointSource, PointTarget>::simpleFindCorrespondence(typename  pcl::Poin
 			+ pow((last_search_point_xyz.y - search_point_xyz.y), 2)
 			+ pow((last_search_point_xyz.z - search_point_xyz.z), 2)) < threshold_sperated_distance_squre)
 		{
-			continue;
+			//continue;
 		}
 
 
