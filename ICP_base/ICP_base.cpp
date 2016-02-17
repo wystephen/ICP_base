@@ -1,5 +1,9 @@
 // ICP_base.cpp : 定义控制台应用程序的入口点。
 //
+/******************************************************************************
+   
+*******************************************************************************/
+
 
 #include "stdafx.h"
 
@@ -65,16 +69,6 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	std::cout << "begin oicp cptran func" << std::endl;
 	o_icp.computerTransformation(Final, icp.getFinalTransformation());
-
-
-
-
-
-
-
-
-
-
 
 
 
