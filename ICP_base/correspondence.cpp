@@ -18,6 +18,7 @@ correspondence::correspondence(double tx1, double ty1, double tz1, double tx2, d
 	x1 = tx1;
 	y1 = ty1;
 	z1 = tz1;
+
 	x2 = tx2;
 	y2 = ty2;
 	z2 = tz2;

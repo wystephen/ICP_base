@@ -137,7 +137,6 @@ void ICP<PointSource, PointTarget>::simpleFindCorrespondence(typename pcl::Point
 
 		if (kdtree_target_ptr_->nearestKSearch(search_point_xyz, 1, point_idx_vector, point_dis_vector) > 0)
 		{
-
 			{
 				last_search_point_xyz = input->at(point_idx_vector[0]);
 
