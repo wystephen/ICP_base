@@ -31,6 +31,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	pcl::PointCloud<pcl::PointXYZ>::Ptr pc_t(new pcl::PointCloud<pcl::PointXYZ>);
 	//pc_t =(boost::make_shared<pcl::PointCloud<pcl::PointXYZ>> ());
 	pcl::PointCloud<pcl::PointXYZ>::Ptr Final_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+
+	//other pcd
+	pcl::PointCloud<pcl::PointXYZ> ::Ptr pcb1(new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb2(new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb3(new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb4(new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb5(new pcl::PointCloud<pcl::PointXYZ>);
+
+	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture1_B.pcd",*pcb1);
+	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture2_B.pcd", *pcb2);
+	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture4_B.pcd", *pcb3);
+	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture4_B.pcd", *pcb4);
+	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture5_B.pcd", *pcb5);
+
 	
 	pcl::io::loadPCDFile<pcl::PointXYZ>("1.pcd", *pc);
 
