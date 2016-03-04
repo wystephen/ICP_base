@@ -38,12 +38,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb3(new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb4(new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb5(new pcl::PointCloud<pcl::PointXYZ>);
-
+	/*               * /
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture1_B.pcd",*pcb1);
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture2_B.pcd", *pcb2);
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture4_B.pcd", *pcb3);
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture4_B.pcd", *pcb4);
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture5_B.pcd", *pcb5);
+	**********************************************************************/
 
 	
 	pcl::io::loadPCDFile<pcl::PointXYZ>("1.pcd", *pc);
@@ -66,23 +67,25 @@ int _tmain(int argc, _TCHAR* argv[])
 	pcl::PointCloud<pcl::PointXYZ>  Final;
 	//pcl icp achive 
 	/* *******************************/
-	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
-	icp.setInputSource(pc_t);
-	icp.setInputTarget(pc);
+	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;				
+	icp.setInputSource(pc);
+	icp.setInputTarget(pc_t);
 	
 	*Final_ptr = Final;
 	
 
 	icp.align(Final);
-
-	std::cout << icp.getFinalTransformation() << std::endl;
+	std::cout << "source:" << transform_matrix << std::endl;
+	std::cout <<"ICP Final:"<< icp.getFinalTransformation() << std::endl;
 	  /*******************************************/
 	ICP<pcl::PointXYZ, pcl::PointXYZ> o_icp;
-	o_icp.setSource(pc_t);
-	o_icp.setTarget(pc);
+	o_icp.setSource(pc);
+	o_icp.setTarget(pc_t);
 
 	std::cout << "begin oicp cptran func" << std::endl;
 	o_icp.computerTransformation(Final, icp.getFinalTransformation());
+	//o_icp.computerTransformation(Final, transform_matrix);
+	//o_icp.computerTransformation(Final, Eigen::Matrix4f::Identity());
 
 
 

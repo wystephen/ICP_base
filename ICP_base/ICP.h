@@ -33,6 +33,21 @@ public:
 
 	typedef boost::shared_ptr<pcl::PointCloud<PointSource>> PointCloudPtr;
 	typedef const boost::shared_ptr<const pcl::PointCloud<PointSource>> PointCloudConstPtr;
+	/************************************************************************************************
+	typedef typename pcl::registration::CorrespondenceEstimationBase<PointSource, PointTarget, double> CorrespondenceEstimation;
+	typedef typename CorrespondenceEstimation::Ptr CorrespondenceEstimationPtr;
+	typedef typename CorrespondenceEstimation::ConstPtr CorrespondenceEstimationConstPtr;
+
+
+	typedef std::vector< pcl::Correspondence, Eigen::aligned_allocator<pcl::Correspondence> > Correspondences;
+	typedef boost::shared_ptr<Correspondences> CorrespondencesPtr;
+	typedef boost::shared_ptr<const Correspondences > CorrespondencesConstPtr;
+
+	CorrespondenceEstimationPtr correspondence_estimation_;
+	CorrespondencesPtr correspondences_;
+
+	*********************************************************************************************/
+
 
 	void setSource(const PointCloudConstPtr& in);
 	void setTarget(const PointCloudConstPtr& target);
@@ -44,6 +59,11 @@ public:
 	                         const Eigen::Matrix4f& transform_matrix);
 
 	void simpleFindCorrespondence(typename pcl::PointCloud<PointSource>::Ptr input);
+
+	void FindCorrespondenceNormal(typename pcl::PointCloud<PointSource>::Ptr input);
+
+
+	//void UsePCLFindCorrespondence(typename pcl::PointCloud<PointSource>::Ptr input);
 
 
 	void getTransLM();

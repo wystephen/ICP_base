@@ -13,9 +13,9 @@ struct TransfromEstimationLM :
 	  FUNCTOR<float>
 {
 public:
-	TransfromEstimationLM(std::vector<correspondence> corr_vec,int data_size) :FUNCTOR<float>(16, data_size) {
+	TransfromEstimationLM(std::vector<correspondence> corr_vec,int data_size) :FUNCTOR<float>(16, 1) {
 		correspondences_vector_ = corr_vec;
-		//epsfcn = 0.01;
+		epsfcn = 0.01;
 	}
 
 	~TransfromEstimationLM(){};
@@ -51,12 +51,13 @@ public:
 			target = Eigen::Vector4f(correspondences_vector_[index].x2,
 				correspondences_vector_[index].y2, correspondences_vector_[index].z2, 1.0);
 
-			fvec[index] = pow(pt_t[0] - target[0], 2) + pow(pt_t[1] - target[1], 2) + pow(pt_t[2] - target[2], 2);
+			fvec[0] += pow(pow(pt_t[0] - target[0], 2) + pow(pt_t[1] - target[1], 2) + pow(pt_t[2] - target[2], 2),0.5);
 		}
+		
 		return 0;
 	}
 
-	int df(const Eigen::VectorXf &x, Eigen::MatrixXf &jac) const
+	int df(const Eigen::VectorXf &x,  Eigen::MatrixXf &jac)const 
 	{
 		//TransfromEstimationLM tm()
 		//boost::shared_ptr<TransfromEstimationLM> tmp(this);
@@ -85,7 +86,7 @@ public:
 		for (int j(0); j < n; j++)
 		{
 			h = eps * abs(tx[j]);
-			if (abs(h - 0.0)<0.00000001)
+			if (abs(h - 0.0)<0.001)
 			{
 				h = eps;
 			}		
@@ -100,7 +101,7 @@ public:
 
 		}
 		/*******************************************************/
-		//std::cout << "jac"<<jac << std::endl;
+		std::cout << "jac"<<jac << std::endl;
 
 		
 		return 0;
