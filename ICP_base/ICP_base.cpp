@@ -8,7 +8,6 @@
 #include "stdafx.h"
 
 
-
 #include "ICP.h"
 #include "ICP.cpp"
 //#include "FUNCTOR.h"
@@ -33,26 +32,26 @@ int _tmain(int argc, _TCHAR* argv[])
 	pcl::PointCloud<pcl::PointXYZ>::Ptr Final_ptr(new pcl::PointCloud<pcl::PointXYZ>);
 
 	//other pcd
-	pcl::PointCloud<pcl::PointXYZ> ::Ptr pcb1(new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb1(new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb2(new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb3(new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb4(new pcl::PointCloud<pcl::PointXYZ>);
 	pcl::PointCloud<pcl::PointXYZ>::Ptr pcb5(new pcl::PointCloud<pcl::PointXYZ>);
-	/*               * /
+	/********************************************************************** /
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture1_B.pcd",*pcb1);
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture2_B.pcd", *pcb2);
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture4_B.pcd", *pcb3);
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture4_B.pcd", *pcb4);
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture5_B.pcd", *pcb5);
-	**********************************************************************/
+	/**********************************************************************/
 
-	
+
 	pcl::io::loadPCDFile<pcl::PointXYZ>("1.pcd", *pc);
 
 
 	Eigen::Matrix4f transform_matrix = Eigen::Matrix4f::Identity();
 
-	double theta =  M_PI /4.0;
+	double theta = M_PI / 4.0;
 
 	transform_matrix(0, 0) = cos(theta);
 	transform_matrix(0, 1) = -sin(theta);
@@ -64,20 +63,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	pcl::transformPointCloud(*pc, *pc_t, transform_matrix);
 	//before here,loaded pcd file,transfrom to anther one.
 
-	pcl::PointCloud<pcl::PointXYZ>  Final;
+	pcl::PointCloud<pcl::PointXYZ> Final;
 	//pcl icp achive 
 	/* *******************************/
-	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;				
+	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
 	icp.setInputSource(pc);
 	icp.setInputTarget(pc_t);
-	
+
 	*Final_ptr = Final;
-	
+
 
 	icp.align(Final);
 	std::cout << "source:" << transform_matrix << std::endl;
-	std::cout <<"ICP Final:"<< icp.getFinalTransformation() << std::endl;
-	  /*******************************************/
+	std::cout << "ICP Final:" << icp.getFinalTransformation() << std::endl;
+	/*******************************************/
 	ICP<pcl::PointXYZ, pcl::PointXYZ> o_icp;
 	o_icp.setSource(pc);
 	o_icp.setTarget(pc_t);
@@ -86,9 +85,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	o_icp.computerTransformation(Final, icp.getFinalTransformation());
 	//o_icp.computerTransformation(Final, transform_matrix);
 	//o_icp.computerTransformation(Final, Eigen::Matrix4f::Identity());
-
-
-
 
 
 	//visualization code. do not change.
@@ -102,7 +98,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 	viewers_ptr->addPointCloud<pcl::PointXYZ>(pc, "sample");
-	
+
 	viewers_ptr->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 1, "sample");
 
 	viewers_ptr->addPointCloud<pcl::PointXYZ>(pc_t, "sa");
