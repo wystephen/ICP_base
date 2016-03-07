@@ -14,6 +14,7 @@
     <ProjectGuid>{3F42C11C-03B9-4118-93A7-15DAB659A258}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Pointfilter_test</RootNamespace>
+    <ProjectName>LPFH</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -80,11 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="PointFilter.cpp" />
     <ClCompile Include="Pointfilter_test.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="PointFilter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
