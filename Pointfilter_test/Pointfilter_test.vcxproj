@@ -81,7 +81,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Pointfilter_test.cpp" />
+    <ClCompile Include="LPFH.cpp" />
+    <ClCompile Include="LPFH_test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LPFH.h" />
+    <ClInclude Include="LPFHSignature.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
