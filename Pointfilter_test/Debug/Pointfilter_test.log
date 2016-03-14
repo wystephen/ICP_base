@@ -1,4 +1,4 @@
-﻿生成启动时间为 2016/3/13 23:32:37。
+﻿生成启动时间为 2016/3/14 12:30:24。
      1>项目“C:\Users\WangYan\documents\visual studio 2013\Projects\ICP_base\Pointfilter_test\Pointfilter_test.vcxproj”在节点 2 上(Build 个目标)。
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Pointfilter_test.vcxproj).  This can lead to incorrect clean and rebuild behavior.
      1>ClCompile:
@@ -20,4 +20,4 @@
 
 生成成功。
 
-已用时间 00:00:27.65
+已用时间 00:00:26.59
