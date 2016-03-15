@@ -15,24 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LPFH_test.cpp">
+    <ClCompile Include="LFSH_test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="LPFH.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="OSAC.cpp">
+    <ClCompile Include="LFSH.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LPFH.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="LPFHSignature.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="OSAC.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LFSH.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LFSHSignature.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kdtree_feature.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -81,13 +81,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LPFH.cpp" />
-    <ClCompile Include="LPFH_test.cpp" />
-    <ClCompile Include="OSAC.cpp" />
+    <ClCompile Include="LFSH.cpp" />
+    <ClCompile Include="LFSH_test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LPFH.h" />
-    <ClInclude Include="LPFHSignature.h" />
+    <ClInclude Include="kdtree_feature.h" />
+    <ClInclude Include="LFSH.h" />
+    <ClInclude Include="LFSHSignature.h" />
     <ClInclude Include="OSAC.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
