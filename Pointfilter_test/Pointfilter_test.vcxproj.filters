@@ -35,5 +35,8 @@
     <ClInclude Include="kdtree_feature.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TransformLM.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
