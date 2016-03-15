@@ -83,10 +83,12 @@
   <ItemGroup>
     <ClCompile Include="LPFH.cpp" />
     <ClCompile Include="LPFH_test.cpp" />
+    <ClCompile Include="OSAC.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LPFH.h" />
     <ClInclude Include="LPFHSignature.h" />
+    <ClInclude Include="OSAC.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
