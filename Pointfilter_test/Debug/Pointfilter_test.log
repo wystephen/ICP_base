@@ -1,26 +1,336 @@
-﻿生成启动时间为 2016/3/15 10:44:56。
+﻿生成启动时间为 2016/3/16 11:02:45。
      1>项目“C:\Users\WangYan\documents\visual studio 2013\Projects\ICP_base\Pointfilter_test\Pointfilter_test.vcxproj”在节点 2 上(Build 个目标)。
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Pointfilter_test.vcxproj).  This can lead to incorrect clean and rebuild behavior.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\PCL 1.7.2\include\pcl-1.7" /I"C:\Program Files (x86)\PCL 1.7.2\3rdParty\Boost\include\boost-1_57" /I"C:\Program Files (x86)\PCL 1.7.2\3rdParty\Eigen\eigen3" /I"C:\Program Files (x86)\PCL 1.7.2\3rdParty\FLANN\include" /I"C:\Program Files (x86)\PCL 1.7.2\3rdParty\QHull\include" /I"C:\Program Files (x86)\PCL 1.7.2\3rdParty\VTK\include\vtk-6.2" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt LPFH.cpp LPFH_test.cpp OSAC.cpp
-         LPFH.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\PCL 1.7.2\include\pcl-1.7" /I"C:\Program Files (x86)\PCL 1.7.2\3rdParty\Boost\include\boost-1_57" /I"C:\Program Files (x86)\PCL 1.7.2\3rdParty\Eigen\eigen3" /I"C:\Program Files (x86)\PCL 1.7.2\3rdParty\FLANN\include" /I"C:\Program Files (x86)\PCL 1.7.2\3rdParty\QHull\include" /I"C:\Program Files (x86)\PCL 1.7.2\3rdParty\VTK\include\vtk-6.2" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D "-D_SCL_SECURE_NO_WARNINGS" /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt -D_SCL_SECURE_NO_WARNINGS LFSH.cpp LFSH_test.cpp
+         LFSH.cpp
      1>c:\program files (x86)\pcl 1.7.2\include\pcl-1.7\pcl\point_traits.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
          正在生成代码...
          正在编译...
-         OSAC.cpp
-     1>c:\program files (x86)\pcl 1.7.2\include\pcl-1.7\pcl\point_traits.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-         LPFH_test.cpp
+         LFSH_test.cpp
      1>c:\program files (x86)\pcl 1.7.2\include\pcl-1.7\pcl\point_traits.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
      1>c:\program files (x86)\pcl 1.7.2\include\pcl-1.7\pcl\sample_consensus\ransac.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
      1>c:\program files (x86)\pcl 1.7.2\include\pcl-1.7\pcl\sample_consensus\sac_model_registration.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(342): warning C4291: “void *operator new(size_t,flann::PooledAllocator &)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(332): 编译类 模板 成员函数“void flann::KMeansIndex<flann::DummyDistance>::buildIndexImpl(void)”时
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\all_indices.h(89): 参见对正在编译的类 模板 实例化“flann::KMeansIndex<flann::DummyDistance>”的引用
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\all_indices.h(119): 参见对正在编译的类 模板 实例化“flann::needs_kdtree_distance<flann::KMeansIndex<flann::DummyDistance>>”的引用
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\all_indices.h(171): 参见对正在编译的类 模板 实例化“flann::valid_combination<flann::KMeansIndex,Distance,ElementType>”的引用
+                 with
+                 [
+                     Distance=flann::L2<float>
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\flann.hpp(113): 参见对正在编译的函数 模板 实例化“flann::NNIndex<Distance> *flann::create_index_by_type<Distance>(const flann::flann_algorithm_t,const flann::Matrix<float> &,const flann::IndexParams &,const Distance &)”的引用
+                 with
+                 [
+                     Distance=flann::L2<float>
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\flann.hpp(101): 编译类 模板 成员函数“flann::Index<flann::L2<float>>::Index(const flann::Matrix<float> &,const flann::IndexParams &,Distance)”时
+                 with
+                 [
+                     Distance=flann::L2<float>
+                 ]
+                 c:\users\wangyan\documents\visual studio 2013\projects\icp_base\pointfilter_test\kdtree_feature.h(62): 参见对正在编译的函数 模板 实例化“flann::Index<flann::L2<float>>::Index(const flann::Matrix<float> &,const flann::IndexParams &,Distance)”的引用
+                 with
+                 [
+                     Distance=flann::L2<float>
+                 ]
+                 c:\users\wangyan\documents\visual studio 2013\projects\icp_base\pointfilter_test\kdtree_feature.h(62): 参见对正在编译的类 模板 实例化“flann::Index<flann::L2<float>>”的引用
+                 c:\users\wangyan\documents\visual studio 2013\projects\icp_base\pointfilter_test\kdtree_feature.h(46): 编译类 模板 成员函数“bool pcl::kdtree_feature<FeatureType>::setInputCloud(const boost::shared_ptr<pcl::PointCloud<PointOutT>>)”时
+                 with
+                 [
+                     FeatureType=pcl::LFSHSignature
+         ,            PointOutT=pcl::LFSHSignature
+                 ]
+                 c:\users\wangyan\documents\visual studio 2013\projects\icp_base\pointfilter_test\osac.h(564): 参见对正在编译的函数 模板 实例化“bool pcl::kdtree_feature<FeatureType>::setInputCloud(const boost::shared_ptr<pcl::PointCloud<PointOutT>>)”的引用
+                 with
+                 [
+                     FeatureType=pcl::LFSHSignature
+         ,            PointOutT=pcl::LFSHSignature
+                 ]
+                 c:\users\wangyan\documents\visual studio 2013\projects\icp_base\pointfilter_test\osac.h(247): 编译类 模板 成员函数“bool pcl::OSAC<pcl::PointXYZ,pcl::LFSHSignature>::CorrespondeceGeneration(void)”时
+                 c:\users\wangyan\documents\visual studio 2013\projects\icp_base\pointfilter_test\osac.h(164): 参见对正在编译的函数 模板 实例化“bool pcl::OSAC<pcl::PointXYZ,pcl::LFSHSignature>::CorrespondeceGeneration(void)”的引用
+                 c:\users\wangyan\documents\visual studio 2013\projects\icp_base\pointfilter_test\osac.h(154): 编译类 模板 成员函数“pcl::OSAC<pcl::PointXYZ,pcl::LFSHSignature>::~OSAC(void)”时
+                 c:\users\wangyan\documents\visual studio 2013\projects\icp_base\pointfilter_test\lfsh_test.cpp(90): 参见对正在编译的函数 模板 实例化“pcl::OSAC<pcl::PointXYZ,pcl::LFSHSignature>::~OSAC(void)”的引用
+                 c:\users\wangyan\documents\visual studio 2013\projects\icp_base\pointfilter_test\lfsh_test.cpp(90): 参见对正在编译的类 模板 实例化“pcl::OSAC<pcl::PointXYZ,pcl::LFSHSignature>”的引用
+     1>c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(308): warning C4291: “void *operator new(size_t,flann::PooledAllocator &)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(298): 编译类 模板 成员函数“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::buildIndexImpl(void)”时
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\all_indices.h(89): 参见对正在编译的类 模板 实例化“flann::HierarchicalClusteringIndex<flann::DummyDistance>”的引用
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\all_indices.h(119): 参见对正在编译的类 模板 实例化“flann::needs_kdtree_distance<flann::HierarchicalClusteringIndex<flann::DummyDistance>>”的引用
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\all_indices.h(180): 参见对正在编译的类 模板 实例化“flann::valid_combination<flann::HierarchicalClusteringIndex,Distance,ElementType>”的引用
+                 with
+                 [
+                     Distance=flann::L2<float>
+                 ]
+     1>c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(702): warning C4291: “void *operator new(size_t,flann::PooledAllocator &)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(543): 编译类 模板 成员函数“void flann::KMeansIndex<flann::DummyDistance>::computeClustering(flann::KMeansIndex<flann::DummyDistance>::Node *,int *,int,int)”时
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(344): 参见对正在编译的函数 模板 实例化“void flann::KMeansIndex<flann::DummyDistance>::computeClustering(flann::KMeansIndex<flann::DummyDistance>::Node *,int *,int,int)”的引用
+     1>c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(516): warning C4291: “void *operator new(size_t,flann::PooledAllocator &)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(472): 编译类 模板 成员函数“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::computeClustering(flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node *,int *,int)”时
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(309): 参见对正在编译的函数 模板 实例化“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::computeClustering(flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node *,int *,int)”的引用
+     1>c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(469): warning C4291: “void *operator new(size_t,flann::PooledAllocator &)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(468): 编译类 模板 成员函数“void flann::KMeansIndex<flann::DummyDistance>::copyTree(flann::KMeansIndex<flann::DummyDistance>::Node *&,flann::KMeansIndex<flann::DummyDistance>::Node *const &)”时
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(157): 参见对正在编译的函数 模板 实例化“void flann::KMeansIndex<flann::DummyDistance>::copyTree(flann::KMeansIndex<flann::DummyDistance>::Node *&,flann::KMeansIndex<flann::DummyDistance>::Node *const &)”的引用
+     1>c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(426): warning C4291: “void *operator new(size_t,flann::PooledAllocator &)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(425): 编译类 模板 成员函数“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::copyTree(flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node *&,flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node *const &)”时
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(146): 参见对正在编译的函数 模板 实例化“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::copyTree(flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node *&,flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node *const &)”的引用
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+     1>c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(249): warning C4291: “void *operator new(size_t,flann::PooledAllocator &)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::KMeansIndex<flann::DummyDistance>::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::KMeansIndex<flann::DummyDistance>::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(26): 参见对正在编译的函数 模板 实例化“void flann::serialization::access::serialize<Archive,T>(Archive &,T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::KMeansIndex<flann::DummyDistance>
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(40): 参见对正在编译的函数 模板 实例化“void flann::serialization::serialize<OutputArchive,T>(Archive &,T &)”的引用
+                 with
+                 [
+                     OutputArchive=flann::serialization::SaveArchive
+         ,            T=flann::KMeansIndex<flann::DummyDistance>
+         ,            Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(296): 参见对正在编译的函数 模板 实例化“void flann::serialization::Serializer<T>::save<Archive>(OutputArchive &,const T &)”的引用
+                 with
+                 [
+                     T=flann::KMeansIndex<flann::DummyDistance>
+         ,            Archive=flann::serialization::SaveArchive
+         ,            OutputArchive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(296): 参见对正在编译的函数 模板 实例化“void flann::serialization::Serializer<T>::save<Archive>(OutputArchive &,const T &)”的引用
+                 with
+                 [
+                     T=flann::KMeansIndex<flann::DummyDistance>
+         ,            Archive=flann::serialization::SaveArchive
+         ,            OutputArchive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(265): 参见对正在编译的函数 模板 实例化“Archive &flann::serialization::OutputArchive<Archive>::operator &<flann::KMeansIndex<flann::DummyDistance>>(const T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::KMeansIndex<flann::DummyDistance>
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(265): 参见对正在编译的函数 模板 实例化“Archive &flann::serialization::OutputArchive<Archive>::operator &<flann::KMeansIndex<flann::DummyDistance>>(const T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::KMeansIndex<flann::DummyDistance>
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(263): 编译类 模板 成员函数“void flann::KMeansIndex<flann::DummyDistance>::saveIndex(FILE *)”时
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+     1>c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(244): warning C4291: “void *operator new(size_t,flann::PooledAllocator &)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(26): 参见对正在编译的函数 模板 实例化“void flann::serialization::access::serialize<Archive,T>(Archive &,T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::HierarchicalClusteringIndex<flann::DummyDistance>
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(40): 参见对正在编译的函数 模板 实例化“void flann::serialization::serialize<OutputArchive,T>(Archive &,T &)”的引用
+                 with
+                 [
+                     OutputArchive=flann::serialization::SaveArchive
+         ,            T=flann::HierarchicalClusteringIndex<flann::DummyDistance>
+         ,            Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(296): 参见对正在编译的函数 模板 实例化“void flann::serialization::Serializer<T>::save<Archive>(OutputArchive &,const T &)”的引用
+                 with
+                 [
+                     T=flann::HierarchicalClusteringIndex<flann::DummyDistance>
+         ,            Archive=flann::serialization::SaveArchive
+         ,            OutputArchive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(296): 参见对正在编译的函数 模板 实例化“void flann::serialization::Serializer<T>::save<Archive>(OutputArchive &,const T &)”的引用
+                 with
+                 [
+                     T=flann::HierarchicalClusteringIndex<flann::DummyDistance>
+         ,            Archive=flann::serialization::SaveArchive
+         ,            OutputArchive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(261): 参见对正在编译的函数 模板 实例化“Archive &flann::serialization::OutputArchive<Archive>::operator &<flann::HierarchicalClusteringIndex<flann::DummyDistance>>(const T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::HierarchicalClusteringIndex<flann::DummyDistance>
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(261): 参见对正在编译的函数 模板 实例化“Archive &flann::serialization::OutputArchive<Archive>::operator &<flann::HierarchicalClusteringIndex<flann::DummyDistance>>(const T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::HierarchicalClusteringIndex<flann::DummyDistance>
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(259): 编译类 模板 成员函数“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::saveIndex(FILE *)”时
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+     1>c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(441): warning C4291: “void *operator new(size_t,flann::PooledAllocator &)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::KMeansIndex<flann::DummyDistance>::Node::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::KMeansIndex<flann::DummyDistance>::Node::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(26): 参见对正在编译的函数 模板 实例化“void flann::serialization::access::serialize<Archive,T>(Archive &,T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::KMeansIndex<flann::DummyDistance>::Node
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(40): 参见对正在编译的函数 模板 实例化“void flann::serialization::serialize<OutputArchive,T>(Archive &,T &)”的引用
+                 with
+                 [
+                     OutputArchive=flann::serialization::SaveArchive
+         ,            T=flann::KMeansIndex<flann::DummyDistance>::Node
+         ,            Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(296): 参见对正在编译的函数 模板 实例化“void flann::serialization::Serializer<T>::save<Archive>(OutputArchive &,const T &)”的引用
+                 with
+                 [
+                     T=flann::KMeansIndex<flann::DummyDistance>::Node
+         ,            Archive=flann::serialization::SaveArchive
+         ,            OutputArchive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(296): 参见对正在编译的函数 模板 实例化“void flann::serialization::Serializer<T>::save<Archive>(OutputArchive &,const T &)”的引用
+                 with
+                 [
+                     T=flann::KMeansIndex<flann::DummyDistance>::Node
+         ,            Archive=flann::serialization::SaveArchive
+         ,            OutputArchive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(251): 参见对正在编译的函数 模板 实例化“Archive &flann::serialization::OutputArchive<Archive>::operator &<flann::KMeansIndex<flann::DummyDistance>::Node>(const T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::KMeansIndex<flann::DummyDistance>::Node
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\kmeans_index.h(251): 参见对正在编译的函数 模板 实例化“Archive &flann::serialization::OutputArchive<Archive>::operator &<flann::KMeansIndex<flann::DummyDistance>::Node>(const T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::KMeansIndex<flann::DummyDistance>::Node
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::KMeansIndex<flann::DummyDistance>::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::KMeansIndex<flann::DummyDistance>::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+     1>c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(394): warning C4291: “void *operator new(size_t,flann::PooledAllocator &)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(26): 参见对正在编译的函数 模板 实例化“void flann::serialization::access::serialize<Archive,T>(Archive &,T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(40): 参见对正在编译的函数 模板 实例化“void flann::serialization::serialize<OutputArchive,T>(Archive &,T &)”的引用
+                 with
+                 [
+                     OutputArchive=flann::serialization::SaveArchive
+         ,            T=flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node
+         ,            Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(296): 参见对正在编译的函数 模板 实例化“void flann::serialization::Serializer<T>::save<Archive>(OutputArchive &,const T &)”的引用
+                 with
+                 [
+                     T=flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node
+         ,            Archive=flann::serialization::SaveArchive
+         ,            OutputArchive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(296): 参见对正在编译的函数 模板 实例化“void flann::serialization::Serializer<T>::save<Archive>(OutputArchive &,const T &)”的引用
+                 with
+                 [
+                     T=flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node
+         ,            Archive=flann::serialization::SaveArchive
+         ,            OutputArchive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(246): 参见对正在编译的函数 模板 实例化“Archive &flann::serialization::OutputArchive<Archive>::operator &<flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node>(const T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\algorithms\hierarchical_clustering_index.h(246): 参见对正在编译的函数 模板 实例化“Archive &flann::serialization::OutputArchive<Archive>::operator &<flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node>(const T &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+         ,            T=flann::HierarchicalClusteringIndex<flann::DummyDistance>::Node
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\serialization.h(18): 参见对正在编译的函数 模板 实例化“void flann::HierarchicalClusteringIndex<flann::DummyDistance>::serialize<Archive>(Archive &)”的引用
+                 with
+                 [
+                     Archive=flann::serialization::SaveArchive
+                 ]
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
+                 c:\program files (x86)\pcl 1.7.2\3rdparty\flann\include\flann\util\allocator.h(197) : 参见“operator new”的声明
          正在生成代码...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\WangYan\documents\visual studio 2013\Projects\ICP_base\Debug\LPFH.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\PCL 1.7.2\lib" /LIBPATH:"C:\Program Files (x86)\PCL 1.7.2\3rdParty\Boost\lib" /LIBPATH:"C:\Program Files (x86)\PCL 1.7.2\3rdParty\FLANN\lib" /LIBPATH:"C:\Program Files (x86)\PCL 1.7.2\3rdParty\QHull\lib" /LIBPATH:"C:\Program Files (x86)\PCL 1.7.2\3rdParty\VTK\lib" pcl_common_debug.lib pcl_features_debug.lib pcl_filters_debug.lib pcl_io_debug.lib pcl_io_ply_debug.lib pcl_kdtree_debug.lib pcl_keypoints_debug.lib pcl_octree_debug.lib pcl_outofcore_debug.lib pcl_people_debug.lib pcl_recognition_debug.lib pcl_registration_debug.lib pcl_sample_consensus_debug.lib pcl_search_debug.lib pcl_segmentation_debug.lib pcl_surface_debug.lib pcl_tracking_debug.lib pcl_visualization_debug.lib "libboost_atomic-vc120-mt-gd-1_57.lib" "libboost_chrono-vc120-mt-gd-1_57.lib" "libboost_container-vc120-mt-gd-1_57.lib" "libboost_context-vc120-mt-gd-1_57.lib" "libboost_coroutine-vc120-mt-gd-1_57.lib" "libboost_date_time-vc120-mt-gd-1_57.lib" "libboost_exception-vc120-mt-gd-1_57.lib" "libboost_filesystem-vc120-mt-gd-1_57.lib" "libboost_graph-vc120-mt-gd-1_57.lib" "libboost_iostreams-vc120-mt-gd-1_57.lib" "libboost_locale-vc120-mt-gd-1_57.lib" "libboost_log-vc120-mt-gd-1_57.lib" "libboost_log_setup-vc120-mt-gd-1_57.lib" "libboost_math_c99-vc120-mt-gd-1_57.lib" "libboost_math_c99f-vc120-mt-gd-1_57.lib" "libboost_math_c99l-vc120-mt-gd-1_57.lib" "libboost_math_tr1-vc120-mt-gd-1_57.lib" "libboost_math_tr1f-vc120-mt-gd-1_57.lib" "libboost_math_tr1l-vc120-mt-gd-1_57.lib" "libboost_mpi-vc120-mt-gd-1_57.lib" "libboost_prg_exec_monitor-vc120-mt-gd-1_57.lib" "libboost_program_options-vc120-mt-gd-1_57.lib" "libboost_random-vc120-mt-gd-1_57.lib" "libboost_regex-vc120-mt-gd-1_57.lib" "libboost_serialization-vc120-mt-gd-1_57.lib" "libboost_signals-vc120-mt-gd-1_57.lib" "libboost_system-vc120-mt-gd-1_57.lib" "libboost_test_exec_monitor-vc120-mt-gd-1_57.lib" "libboost_thread-vc120-mt-gd-1_57.lib" "libboost_timer-vc120-mt-gd-1_57.lib" "libboost_unit_test_framework-vc120-mt-gd-1_57.lib" "libboost_wave-vc120-mt-gd-1_57.lib" "libboost_wserialization-vc120-mt-gd-1_57.lib" "flann_cpp_s-gd.lib" qhullstatic_d.lib "vtkalglib-6.2-gd.lib" "vtkChartsCore-6.2-gd.lib" "vtkCommonColor-6.2-gd.lib" "vtkCommonComputationalGeometry-6.2-gd.lib" "vtkCommonCore-6.2-gd.lib" "vtkCommonDataModel-6.2-gd.lib" "vtkCommonExecutionModel-6.2-gd.lib" "vtkCommonMath-6.2-gd.lib" "vtkCommonMisc-6.2-gd.lib" "vtkCommonSystem-6.2-gd.lib" "vtkCommonTransforms-6.2-gd.lib" "vtkDICOMParser-6.2-gd.lib" "vtkDomainsChemistry-6.2-gd.lib" "vtkexoIIc-6.2-gd.lib" "vtkexpat-6.2-gd.lib" "vtkFiltersAMR-6.2-gd.lib" "vtkFiltersCore-6.2-gd.lib" "vtkFiltersExtraction-6.2-gd.lib" "vtkFiltersFlowPaths-6.2-gd.lib" "vtkFiltersGeneral-6.2-gd.lib" "vtkFiltersGeneric-6.2-gd.lib" "vtkFiltersGeometry-6.2-gd.lib" "vtkFiltersHybrid-6.2-gd.lib" "vtkFiltersHyperTree-6.2-gd.lib" "vtkFiltersImaging-6.2-gd.lib" "vtkFiltersModeling-6.2-gd.lib" "vtkFiltersParallel-6.2-gd.lib" "vtkFiltersParallelImaging-6.2-gd.lib" "vtkFiltersProgrammable-6.2-gd.lib" "vtkFiltersSelection-6.2-gd.lib" "vtkFiltersSMP-6.2-gd.lib" "vtkFiltersSources-6.2-gd.lib" "vtkFiltersStatistics-6.2-gd.lib" "vtkFiltersTexture-6.2-gd.lib" "vtkFiltersVerdict-6.2-gd.lib" "vtkfreetype-6.2-gd.lib" "vtkftgl-6.2-gd.lib" "vtkGeovisCore-6.2-gd.lib" "vtkgl2ps-6.2-gd.lib" "vtkhdf5-6.2-gd.lib" "vtkhdf5_hl-6.2-gd.lib" "vtkImagingColor-6.2-gd.lib" "vtkImagingCore-6.2-gd.lib" "vtkImagingFourier-6.2-gd.lib" "vtkImagingGeneral-6.2-gd.lib" "vtkImagingHybrid-6.2-gd.lib" "vtkImagingMath-6.2-gd.lib" "vtkImagingMorphological-6.2-gd.lib" "vtkImagingSources-6.2-gd.lib" "vtkImagingStatistics-6.2-gd.lib" "vtkImagingStencil-6.2-gd.lib" "vtkInfovisCore-6.2-gd.lib" "vtkInfovisLayout-6.2-gd.lib" "vtkInteractionImage-6.2-gd.lib" "vtkInteractionStyle-6.2-gd.lib" "vtkInteractionWidgets-6.2-gd.lib" "vtkIOAMR-6.2-gd.lib" "vtkIOCore-6.2-gd.lib" "vtkIOEnSight-6.2-gd.lib" "vtkIOExodus-6.2-gd.lib" "vtkIOExport-6.2-gd.lib" "vtkIOGeometry-6.2-gd.lib" "vtkIOImage-6.2-gd.lib" "vtkIOImport-6.2-gd.lib" "vtkIOInfovis-6.2-gd.lib" "vtkIOLegacy-6.2-gd.lib" "vtkIOLSDyna-6.2-gd.lib" "vtkIOMINC-6.2-gd.lib" "vtkIOMovie-6.2-gd.lib" "vtkIONetCDF-6.2-gd.lib" "vtkIOParallel-6.2-gd.lib" "vtkIOParallelXML-6.2-gd.lib" "vtkIOPLY-6.2-gd.lib" "vtkIOSQL-6.2-gd.lib" "vtkIOVideo-6.2-gd.lib" "vtkIOXML-6.2-gd.lib" "vtkIOXMLParser-6.2-gd.lib" "vtkjpeg-6.2-gd.lib" "vtkjsoncpp-6.2-gd.lib" "vtklibxml2-6.2-gd.lib" "vtkmetaio-6.2-gd.lib" "vtkNetCDF-6.2-gd.lib" "vtkNetCDF_cxx-6.2-gd.lib" "vtkoggtheora-6.2-gd.lib" "vtkParallelCore-6.2-gd.lib" "vtkpng-6.2-gd.lib" "vtkproj4-6.2-gd.lib" "vtkRenderingAnnotation-6.2-gd.lib" "vtkRenderingContext2D-6.2-gd.lib" "vtkRenderingContextOpenGL-6.2-gd.lib" "vtkRenderingCore-6.2-gd.lib" "vtkRenderingFreeType-6.2-gd.lib" "vtkRenderingFreeTypeOpenGL-6.2-gd.lib" "vtkRenderingGL2PS-6.2-gd.lib" "vtkRenderingImage-6.2-gd.lib" "vtkRenderingLabel-6.2-gd.lib" "vtkRenderingLIC-6.2-gd.lib" "vtkRenderingLOD-6.2-gd.lib" "vtkRenderingOpenGL-6.2-gd.lib" "vtkRenderingVolume-6.2-gd.lib" "vtkRenderingVolumeOpenGL-6.2-gd.lib" "vtksqlite-6.2-gd.lib" "vtksys-6.2-gd.lib" "vtktiff-6.2-gd.lib" "vtkverdict-6.2-gd.lib" "vtkViewsContext2D-6.2-gd.lib" "vtkViewsCore-6.2-gd.lib" "vtkViewsInfovis-6.2-gd.lib" "vtkzlib-6.2-gd.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\WangYan\documents\visual studio 2013\Projects\ICP_base\Debug\LPFH.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\WangYan\documents\visual studio 2013\Projects\ICP_base\Debug\LPFH.lib" /MACHINE:X86 Debug\LPFH.obj
-         Debug\LPFH_test.obj
-         Debug\OSAC.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\WangYan\documents\visual studio 2013\Projects\ICP_base\Debug\LPFH.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\PCL 1.7.2\lib" /LIBPATH:"C:\Program Files (x86)\PCL 1.7.2\3rdParty\Boost\lib" /LIBPATH:"C:\Program Files (x86)\PCL 1.7.2\3rdParty\FLANN\lib" /LIBPATH:"C:\Program Files (x86)\PCL 1.7.2\3rdParty\QHull\lib" /LIBPATH:"C:\Program Files (x86)\PCL 1.7.2\3rdParty\VTK\lib" pcl_common_debug.lib pcl_features_debug.lib pcl_filters_debug.lib pcl_io_debug.lib pcl_io_ply_debug.lib pcl_kdtree_debug.lib pcl_keypoints_debug.lib pcl_octree_debug.lib pcl_outofcore_debug.lib pcl_people_debug.lib pcl_recognition_debug.lib pcl_registration_debug.lib pcl_sample_consensus_debug.lib pcl_search_debug.lib pcl_segmentation_debug.lib pcl_surface_debug.lib pcl_tracking_debug.lib pcl_visualization_debug.lib "libboost_atomic-vc120-mt-gd-1_57.lib" "libboost_chrono-vc120-mt-gd-1_57.lib" "libboost_container-vc120-mt-gd-1_57.lib" "libboost_context-vc120-mt-gd-1_57.lib" "libboost_coroutine-vc120-mt-gd-1_57.lib" "libboost_date_time-vc120-mt-gd-1_57.lib" "libboost_exception-vc120-mt-gd-1_57.lib" "libboost_filesystem-vc120-mt-gd-1_57.lib" "libboost_graph-vc120-mt-gd-1_57.lib" "libboost_iostreams-vc120-mt-gd-1_57.lib" "libboost_locale-vc120-mt-gd-1_57.lib" "libboost_log-vc120-mt-gd-1_57.lib" "libboost_log_setup-vc120-mt-gd-1_57.lib" "libboost_math_c99-vc120-mt-gd-1_57.lib" "libboost_math_c99f-vc120-mt-gd-1_57.lib" "libboost_math_c99l-vc120-mt-gd-1_57.lib" "libboost_math_tr1-vc120-mt-gd-1_57.lib" "libboost_math_tr1f-vc120-mt-gd-1_57.lib" "libboost_math_tr1l-vc120-mt-gd-1_57.lib" "libboost_mpi-vc120-mt-gd-1_57.lib" "libboost_prg_exec_monitor-vc120-mt-gd-1_57.lib" "libboost_program_options-vc120-mt-gd-1_57.lib" "libboost_random-vc120-mt-gd-1_57.lib" "libboost_regex-vc120-mt-gd-1_57.lib" "libboost_serialization-vc120-mt-gd-1_57.lib" "libboost_signals-vc120-mt-gd-1_57.lib" "libboost_system-vc120-mt-gd-1_57.lib" "libboost_test_exec_monitor-vc120-mt-gd-1_57.lib" "libboost_thread-vc120-mt-gd-1_57.lib" "libboost_timer-vc120-mt-gd-1_57.lib" "libboost_unit_test_framework-vc120-mt-gd-1_57.lib" "libboost_wave-vc120-mt-gd-1_57.lib" "libboost_wserialization-vc120-mt-gd-1_57.lib" "flann_cpp_s-gd.lib" qhullstatic_d.lib "vtkalglib-6.2-gd.lib" "vtkChartsCore-6.2-gd.lib" "vtkCommonColor-6.2-gd.lib" "vtkCommonComputationalGeometry-6.2-gd.lib" "vtkCommonCore-6.2-gd.lib" "vtkCommonDataModel-6.2-gd.lib" "vtkCommonExecutionModel-6.2-gd.lib" "vtkCommonMath-6.2-gd.lib" "vtkCommonMisc-6.2-gd.lib" "vtkCommonSystem-6.2-gd.lib" "vtkCommonTransforms-6.2-gd.lib" "vtkDICOMParser-6.2-gd.lib" "vtkDomainsChemistry-6.2-gd.lib" "vtkexoIIc-6.2-gd.lib" "vtkexpat-6.2-gd.lib" "vtkFiltersAMR-6.2-gd.lib" "vtkFiltersCore-6.2-gd.lib" "vtkFiltersExtraction-6.2-gd.lib" "vtkFiltersFlowPaths-6.2-gd.lib" "vtkFiltersGeneral-6.2-gd.lib" "vtkFiltersGeneric-6.2-gd.lib" "vtkFiltersGeometry-6.2-gd.lib" "vtkFiltersHybrid-6.2-gd.lib" "vtkFiltersHyperTree-6.2-gd.lib" "vtkFiltersImaging-6.2-gd.lib" "vtkFiltersModeling-6.2-gd.lib" "vtkFiltersParallel-6.2-gd.lib" "vtkFiltersParallelImaging-6.2-gd.lib" "vtkFiltersProgrammable-6.2-gd.lib" "vtkFiltersSelection-6.2-gd.lib" "vtkFiltersSMP-6.2-gd.lib" "vtkFiltersSources-6.2-gd.lib" "vtkFiltersStatistics-6.2-gd.lib" "vtkFiltersTexture-6.2-gd.lib" "vtkFiltersVerdict-6.2-gd.lib" "vtkfreetype-6.2-gd.lib" "vtkftgl-6.2-gd.lib" "vtkGeovisCore-6.2-gd.lib" "vtkgl2ps-6.2-gd.lib" "vtkhdf5-6.2-gd.lib" "vtkhdf5_hl-6.2-gd.lib" "vtkImagingColor-6.2-gd.lib" "vtkImagingCore-6.2-gd.lib" "vtkImagingFourier-6.2-gd.lib" "vtkImagingGeneral-6.2-gd.lib" "vtkImagingHybrid-6.2-gd.lib" "vtkImagingMath-6.2-gd.lib" "vtkImagingMorphological-6.2-gd.lib" "vtkImagingSources-6.2-gd.lib" "vtkImagingStatistics-6.2-gd.lib" "vtkImagingStencil-6.2-gd.lib" "vtkInfovisCore-6.2-gd.lib" "vtkInfovisLayout-6.2-gd.lib" "vtkInteractionImage-6.2-gd.lib" "vtkInteractionStyle-6.2-gd.lib" "vtkInteractionWidgets-6.2-gd.lib" "vtkIOAMR-6.2-gd.lib" "vtkIOCore-6.2-gd.lib" "vtkIOEnSight-6.2-gd.lib" "vtkIOExodus-6.2-gd.lib" "vtkIOExport-6.2-gd.lib" "vtkIOGeometry-6.2-gd.lib" "vtkIOImage-6.2-gd.lib" "vtkIOImport-6.2-gd.lib" "vtkIOInfovis-6.2-gd.lib" "vtkIOLegacy-6.2-gd.lib" "vtkIOLSDyna-6.2-gd.lib" "vtkIOMINC-6.2-gd.lib" "vtkIOMovie-6.2-gd.lib" "vtkIONetCDF-6.2-gd.lib" "vtkIOParallel-6.2-gd.lib" "vtkIOParallelXML-6.2-gd.lib" "vtkIOPLY-6.2-gd.lib" "vtkIOSQL-6.2-gd.lib" "vtkIOVideo-6.2-gd.lib" "vtkIOXML-6.2-gd.lib" "vtkIOXMLParser-6.2-gd.lib" "vtkjpeg-6.2-gd.lib" "vtkjsoncpp-6.2-gd.lib" "vtklibxml2-6.2-gd.lib" "vtkmetaio-6.2-gd.lib" "vtkNetCDF-6.2-gd.lib" "vtkNetCDF_cxx-6.2-gd.lib" "vtkoggtheora-6.2-gd.lib" "vtkParallelCore-6.2-gd.lib" "vtkpng-6.2-gd.lib" "vtkproj4-6.2-gd.lib" "vtkRenderingAnnotation-6.2-gd.lib" "vtkRenderingContext2D-6.2-gd.lib" "vtkRenderingContextOpenGL-6.2-gd.lib" "vtkRenderingCore-6.2-gd.lib" "vtkRenderingFreeType-6.2-gd.lib" "vtkRenderingFreeTypeOpenGL-6.2-gd.lib" "vtkRenderingGL2PS-6.2-gd.lib" "vtkRenderingImage-6.2-gd.lib" "vtkRenderingLabel-6.2-gd.lib" "vtkRenderingLIC-6.2-gd.lib" "vtkRenderingLOD-6.2-gd.lib" "vtkRenderingOpenGL-6.2-gd.lib" "vtkRenderingVolume-6.2-gd.lib" "vtkRenderingVolumeOpenGL-6.2-gd.lib" "vtksqlite-6.2-gd.lib" "vtksys-6.2-gd.lib" "vtktiff-6.2-gd.lib" "vtkverdict-6.2-gd.lib" "vtkViewsContext2D-6.2-gd.lib" "vtkViewsCore-6.2-gd.lib" "vtkViewsInfovis-6.2-gd.lib" "vtkzlib-6.2-gd.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\WangYan\documents\visual studio 2013\Projects\ICP_base\Debug\LPFH.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\WangYan\documents\visual studio 2013\Projects\ICP_base\Debug\LPFH.lib" /MACHINE:X86 Debug\LFSH.obj
+         Debug\LFSH_test.obj
          Pointfilter_test.vcxproj -> C:\Users\WangYan\documents\visual studio 2013\Projects\ICP_base\Debug\LPFH.exe
      1>已完成生成项目“C:\Users\WangYan\documents\visual studio 2013\Projects\ICP_base\Pointfilter_test\Pointfilter_test.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:40.52
+已用时间 00:00:38.05
