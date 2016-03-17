@@ -13,7 +13,7 @@ struct TransfromEstimationLM :
 	  FUNCTOR<float>
 {
 public:
-	TransfromEstimationLM(std::vector<correspondence> corr_vec,int data_size) :FUNCTOR<float>(16, 1) {
+	TransfromEstimationLM(std::vector<correspondence> corr_vec,int data_size) :FUNCTOR<float>(16, data_size) {
 		correspondences_vector_ = corr_vec;
 		epsfcn = 0.01;
 	}
@@ -51,7 +51,7 @@ public:
 			target = Eigen::Vector4f(correspondences_vector_[index].x2,
 				correspondences_vector_[index].y2, correspondences_vector_[index].z2, 1.0);
 
-			fvec[0] += pow(pow(pt_t[0] - target[0], 2) + pow(pt_t[1] - target[1], 2) + pow(pt_t[2] - target[2], 2),0.5);
+			fvec[index] = pow(pow(pt_t[0] - target[0], 2) + pow(pt_t[1] - target[1], 2) + pow(pt_t[2] - target[2], 2),0.5);
 		}
 		
 		return 0;
@@ -71,7 +71,7 @@ public:
 		int nfev = 0;
 		const Eigen::VectorXf::Index n = 16;
 		const float eps = sqrt((std::max)(epsfcn, Eigen::NumTraits<float>::epsilon()));
-		std::cout << "eps:" << eps << std::endl;
+		//std::cout << "eps:" << eps << std::endl;
 
 		Eigen::VectorXf val1, val2;
 		Eigen::VectorXf tx = x;
@@ -101,7 +101,7 @@ public:
 
 		}
 		/*******************************************************/
-		std::cout << "jac"<<jac << std::endl;
+		//std::cout << "jac"<<jac << std::endl;
 
 		
 		return 0;
