@@ -38,6 +38,9 @@
     <ClInclude Include="LM6DOF.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="OSAC.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
