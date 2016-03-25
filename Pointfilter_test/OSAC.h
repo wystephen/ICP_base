@@ -74,15 +74,15 @@ namespace pcl
 		std::vector<PointSourceT> src_vector;
 		std::vector<PointSourceT> target_vector;
 
-
+		/*************************************************
+		  parameter set functions
+		**************************************************/
 		bool compute(Eigen::Matrix4f& transform_matrix);
 
 		bool setSourceCloud(const PointCloudPtr source);
 
 		bool setTargetCloud(const PointCloudPtr target);
-		/*************************************************
-		
-		**************************************************/
+
 		double getCompressSize() const;
 		double setCompressSize(double size);
 
@@ -91,6 +91,7 @@ namespace pcl
 
 		double setAlpha(double alpha);
 		double getAlpha() const;
+
 
 		//save correspondence find in correspondence generation
 		struct mutlicorr
@@ -107,8 +108,8 @@ namespace pcl
 
 		int x_;//Select x_ samples from C.
 
-		double avg_dis_;
-		double std_dev_;
+		double avg_dis_; //avg distance get in feature histogram
+		double std_dev_; // standardra division of  feature histogram
 
 		double d_min_;//User-defined minimum distance for select point from pairwise.
 
@@ -166,7 +167,6 @@ namespace pcl
 	OSAC<PointSourceT, FeatureType>::~OSAC()
 	{
 	}
-
 
 
 	template <typename PointSourceT, typename FeatureType>
@@ -300,6 +300,7 @@ namespace pcl
 			std::vector<int>::iterator it_index = correspon_vecotr_[i].target_index_.begin();
 			std::vector<float>::iterator it_dist = correspon_vecotr_[i].target_dists_.begin();
 			while (it_index != correspon_vecotr_[i].target_index_.end())
+			{
 				if (*it_dist > d_f_)
 				{
 					it_dist = correspon_vecotr_[i].target_dists_.erase(it_dist);
@@ -312,6 +313,7 @@ namespace pcl
 					++it_dist;
 					++it_index;
 				}
+			}
 		}
 		//重构的时候注意这个地方需要与上边的循环合并，应该是利用迭代器直接迭代和erase。
 		//处理删除了 target中所有元素的情况
@@ -412,9 +414,9 @@ namespace pcl
 			//select correspondences
 			RandSelect(source, target, out_tmp);
 
-			//std::cout << "src:target:" << source << target << std::endl;
 			//compute transform M_i
 			tmp_transform = TransformSolve(source, target);
+
 			//transform	
 			source = source * tmp_transform;
 
@@ -422,7 +424,7 @@ namespace pcl
 			Eigen::MatrixXf err(x_, 4);
 			err = source - target;
 			double sum(0);
-			for (int i(0); i < source.rows();++i)
+			for (int i(0); i < source.rows(); ++i)
 			{
 				sum += sqrt(pow(err(i, 0), 2) + pow(err(i, 1), 2) + pow(err(i, 2), 2));
 			}
@@ -461,9 +463,9 @@ namespace pcl
 				min_D_avg = the_D_avg;
 				transfomr_matrix = tmp_transform;
 			}
-			else if (the_D_avg < min_D_avg || (sum/x_ < min_err ))//&& sum/x_ > 0.001))
+			else if (the_D_avg < min_D_avg)// || (sum/x_ < min_err ))//&& sum/x_ > 0.001))
 			{
-				min_err = sum / x_;	//
+				min_err = sum / x_; //
 
 
 				src_vector.clear();

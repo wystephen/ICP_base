@@ -87,9 +87,27 @@ private:
 			float dis(0.0);
 			for (int i(0); i < dimension_i_;++i)
 			{
-				dis += (*(dists.ptr() + i + k*dimension_i_))*(*(dists.ptr() + i+k*dimension_i_));
+				dis += (*(dists.ptr() + i + k*dimension_i_) - point.histogram[i] ) *
+					(*(dists.ptr() + i + k*dimension_i_) - point.histogram[i]);
 			}
 			dis_vector.push_back(sqrt(dis));
+
+			/******************************************************** /
+			std::cout << "dis[" << k << "]:" << dis << std::endl;
+			if (true)
+			{
+				for(int i(0);i< dimension_i_;++i)
+				{
+					std::cout << point.histogram[i]<< ":";
+				}
+				std::cout << endl;
+				for (int i(0); i < dimension_i_;++i)
+				{
+					std::cout << trash_ptr_[k*dimension_i_ + i] << ":";
+				}
+				std::cout << std::endl;
+			}
+			/****************************************************/
 #ifdef _DEBUG
 			//For test 
 			
