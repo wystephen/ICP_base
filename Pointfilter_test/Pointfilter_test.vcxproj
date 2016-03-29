@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClCompile Include="..\ICP_base\FUNCTOR.cpp" />
     <ClCompile Include="LFSH_test.cpp" />
+    <ClCompile Include="Model_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ICP_base\FUNCTOR.h" />

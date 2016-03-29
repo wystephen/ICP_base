@@ -16,7 +16,7 @@
 #define IS_USE_KDTREE false
 #define BIG_FLAT 99999999.0f
 
-#define Random(range) (rand()%range)
+
 
 //As Kd-tree algorithm in pcl maybe can't use to search LFSHSignature type.
 namespace pcl
@@ -463,7 +463,7 @@ namespace pcl
 				min_D_avg = the_D_avg;
 				transfomr_matrix = tmp_transform;
 			}
-			else if (the_D_avg < min_D_avg)// || (sum/x_ < min_err ))//&& sum/x_ > 0.001))
+			else if ((the_D_avg < min_D_avg)|| (sum/x_ < min_err ))//&& sum/x_ > 0.001))
 			{
 				min_err = sum / x_; //
 

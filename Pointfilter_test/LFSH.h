@@ -4,6 +4,11 @@
 #include <pcl/features/normal_3d_omp.h>
 #include "LFSHSignature.h"
 
+#include <pcl/io/pcd_io.h>
+#include <pcl/filters/approximate_voxel_grid.h>
+
+
+
 namespace pcl
 {
 	template <typename PointInT, typename PointOutT>
@@ -43,7 +48,7 @@ namespace pcl
 		bool ForDebugInputViwer(boost::shared_ptr<pcl::visualization::PCLVisualizer> view_shared_ptr);
 		bool setInputCloud(const PointCloudPtr input);
 
-		double setRadius(double coeff);
+		double setRadius_coeff(double coeff);
 
 		bool compute(pcl::PointCloud<PointOutT>& output);
 
@@ -143,15 +148,15 @@ namespace pcl
 			(model_y_max - model_y_min) *
 			(model_z_max - model_z_min);
 
-		setRadius(0.25);
+		setRadius_coeff(0.25);
 
 		return true;
 	}
 
 	template <typename PointInT, typename PointOutT>
-	double LFSH<PointInT, PointOutT>::setRadius(double coeff)
+	double LFSH<PointInT, PointOutT>::setRadius_coeff(double coeff)
 	{
-		r_ = sqrt(model_volume_ / M_PI) * coeff;
+		r_ = pow(model_volume_ / M_PI * 3.0 / 4.0, 0.33333) * coeff;
 		//std::cout << "r_:" << r_ << "model_volum:"<<model_volume_<<std::endl;
 		return r_;
 	}
@@ -174,7 +179,7 @@ namespace pcl
 		pcl::NormalEstimationOMP<PointInT, pcl::Normal> ne;
 		ne.setInputCloud(input_ptr_);
 		ne.setSearchMethod(tmp_kd_tree);
-		ne.setRadiusSearch(r_*0.5);
+		ne.setRadiusSearch(r_ * 0.5);
 		ne.setNumberOfThreads(4);
 		ne.compute(*normal_ptr_);
 		//TODO: 可以尝试实现用高密度点云估算法向量方向 setSearchSurface.
@@ -339,4 +344,77 @@ namespace pcl
 		return true;
 	}
 };
+
+bool ModelTest_LFSH()
+{
+	//Load data
+	pcl::PointCloud<pcl::PointXYZ>::Ptr src_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+	pcl::PointCloud<pcl::PointXYZ>::Ptr target_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+
+	
+
+	//Build transform matrix.
+	Eigen::Matrix4f transform_matrix(Eigen::Matrix4f::Identity());
+
+	double theta = M_PI / 4.0 / 1.0;
+
+	transform_matrix(0, 0) = cos(theta);
+	transform_matrix(0, 1) = -sin(theta);
+	transform_matrix(1, 0) = sin(theta);
+	transform_matrix(1, 1) = cos(theta);
+
+	//pcl::transformPointCloud(*src_ptr, *target_ptr, transform_matrix);
+
+	//DownSample the point cloud.
+	pcl::ApproximateVoxelGrid<pcl::PointXYZ>::Ptr compress_ptr(new pcl::ApproximateVoxelGrid<pcl::PointXYZ>);
+	for (int step(1); step < 20; ++step)
+	{	
+		//Reload point cloud.
+		pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture5_B.pcd", *src_ptr);
+
+		double leaf_size(0.1);
+		leaf_size -= step * 0.004;
+		compress_ptr->setLeafSize(leaf_size, leaf_size, leaf_size);
+		compress_ptr->setDownsampleAllData(true);
+
+		compress_ptr->setInputCloud(src_ptr);
+		compress_ptr->filter(*src_ptr);
+
+		//Transform matrix
+		pcl::transformPointCloud(*src_ptr, *target_ptr, transform_matrix);
+
+		//Compute feature
+		pcl::LFSH<pcl::PointXYZ, pcl::LFSHSignature> lfsh_extract;
+
+		pcl::PointCloud<pcl::LFSHSignature>::Ptr src_lfsh_ptr(new pcl::PointCloud<pcl::LFSHSignature>);
+		pcl::PointCloud<pcl::LFSHSignature>::Ptr target_lfsh_ptr(new pcl::PointCloud<pcl::LFSHSignature>);
+
+		lfsh_extract.setInputCloud(src_ptr);
+		lfsh_extract.compute(*src_lfsh_ptr);
+
+		lfsh_extract.setInputCloud(target_ptr);
+		lfsh_extract.compute(*target_lfsh_ptr);
+		double avg(0.0);
+		for (int i(0); i < target_lfsh_ptr->size(); ++i)
+		{
+			double sum(0.0);
+			for (int j(0); j < 33; ++j)
+			{
+				sum += pow(target_lfsh_ptr->at(i).histogram[j] - src_lfsh_ptr->at(i).histogram[j], 2);
+			}
+			avg += sum;
+
+			//std::cout << "[" << i << "]:" << pow(sum, 0.5) << std::endl;
+		}
+		avg = avg / target_lfsh_ptr->size();
+		std::cout << "leaf size:" << leaf_size << "avg:" << avg << std::endl;
+	}
+
+
+	int a(0);
+	std::cin >> a;
+
+
+	return true;
+}
 

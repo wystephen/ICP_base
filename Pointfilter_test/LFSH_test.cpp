@@ -41,6 +41,19 @@ bool PointCloudTransform(pcl::PointCloud<pcl::PointXYZ>& src, pcl::PointCloud<pc
 
 int main()
 {
+
+	/*********************************************************************************************/
+	//Model test for LFSH
+
+	//ModelTest_LFSH();   // pase?
+
+	ModelTest_LM6DOF();
+
+
+
+
+
+	/*********************************************************************************/
 	/***************************************************************
 	初始化可视化工具
 	
@@ -124,12 +137,12 @@ int main()
 
 
 	viwer_ptr->addCoordinateSystem(1.0);
-	for (int i(0); i < 3001; i++)
+	for (int i(0); i < 30001; i++)
 	{
 		pcl::OSAC<pcl::PointXYZ, pcl::LFSHSignature> osac_estimation;
 		viwer_ptr->removeAllPointClouds();
 		
-		osac_estimation.setCompressSize(0.05);
+		osac_estimation.setCompressSize(0.02);
 		osac_estimation.setNumberOfCorr(3);
 		osac_estimation.setAlpha(1.5);
 
@@ -141,6 +154,7 @@ int main()
 		osac_estimation.compute(*transform_matrix_ptr);	 
 
 		pcl::transformPointCloud(*p_src_ptr, *p_src_transform, *transform_matrix_ptr);
+		//pcl::transformPointCloud(*p_target_ptr, *p_src_transform, *transform_matrix_ptr);
 		//PointCloudTransform(*p_src_ptr, *p_src_transform, *transform_matrix_ptr);	
 		//红色：目标     绿色：转换后         蓝色：原始											   
 		pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color_src(p_src_ptr, 2, 2, 222);

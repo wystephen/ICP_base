@@ -1,6 +1,11 @@
 #pragma once
 #include "C:\Users\WangYan\Documents\Visual Studio 2013\Projects\ICP_base\ICP_base\FUNCTOR.h"
 
+#include <stdlib.h>
+#include <time.h>
+
+#define Random(range) (rand() % range)
+
 #define  PI 3.1415926
 
 class LM6DOF :
@@ -192,5 +197,71 @@ Eigen::Matrix4f LM6DOF::computeTransformMatrix(Eigen::VectorXf& tf)
 	T(3, 3) = 1;
 
 	return T;
+}
+
+bool ModelTest_LM6DOF()
+{
+
+	//Build a transform matrix
+	Eigen::Matrix4f transform_matrix(Eigen::Matrix4f::Identity());
+
+	double theta = M_PI / 4.0 / 1.0;
+
+	transform_matrix(0, 0) = cos(theta);
+	transform_matrix(0, 1) = -sin(theta);
+	transform_matrix(1, 0) = sin(theta);
+	transform_matrix(1, 1) = cos(theta);
+
+	//New Point src and target.
+
+	Eigen::MatrixXf src_t, target_t;
+	Eigen::Vector4f src_tmp;
+	
+	int data_size(20);
+	src_t.resize(data_size, 4);
+	target_t.resize(data_size, 4);
+
+	srand(int(time(0)));//Set seed to get random number.
+
+	for (int i(0); i < data_size;++i)
+	{
+		src_tmp(0) = double(Random(1000)) / 500.0;
+		src_tmp(1) = double(Random(1000)) / 500.0;
+		src_tmp(2) = double(Random(1000)) / 500.0;
+		src_tmp(3) = 1.0;
+
+		src_t.row(i) = src_tmp;
+
+	}
+	target_t = src_t * transform_matrix;
+
+	//Compute transform
+	Eigen::Matrix4f solveMatrix(Eigen::Matrix4f::Identity());
+	LM6DOF func(src_t.rows(), src_t,target_t);
+	Eigen::LevenbergMarquardt<LM6DOF, float> lm(func);
+
+
+	Eigen::VectorXf x;
+	x.resize(6);
+	for (int k(0); k < 6;++k)
+	{
+		x(k) = 0.01;
+	}
+
+	lm.minimize(x);
+	solveMatrix = func.computeTransformMatrix(x);
+
+	std::cout << "transfomr matrix:" << std::endl;
+	std::cout << transform_matrix << std::endl;
+
+	std::cout << "solve matrix:" << std::endl;
+	std::cout << solveMatrix << std::endl;
+
+
+
+	//templete
+	int a(0);
+	std::cin >> a;
+	return true;
 }
 
