@@ -63,7 +63,7 @@ namespace pcl
 
 			d_tua_ = 1.3;//
 
-			N_iter = 2000;
+			N_iter = 1000;
 
 			x_ = 100;
 			d_min_ = 0.13;
@@ -418,7 +418,7 @@ namespace pcl
 			tmp_transform = TransformSolve(source, target);
 
 			//transform	
-			source = source * tmp_transform;
+			source = tmp_transform * source.transpose();  //TODO:
 
 			/********************************************/
 			Eigen::MatrixXf err(x_, 4);
@@ -632,7 +632,7 @@ namespace pcl
 		x.resize(6);
 		for (int j(0); j < 6; ++j)
 		{
-			x(j) = 0.01;
+			x(j) = 0;
 		}
 
 		lm.minimize(x);

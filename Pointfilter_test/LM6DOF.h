@@ -51,10 +51,10 @@ inline int LM6DOF::operator()(const Eigen::VectorXf& x, Eigen::VectorXf& fvec)
 {
 	Eigen::Matrix4f tr;
 	Vector6f t_x = x;
-	
+
 	tr = computeTransformMatrix(t_x);
 	Eigen::MatrixXf err(src_.rows(), src_.cols());
-	err = tr * (src_ptr_->transpose() ) - (*target_ptr_);  //Matrix multi.....
+	err = tr * (src_ptr_->transpose()) - (*target_ptr_); //Matrix multi.....
 	for (int i(0); i < err.rows(); ++i)
 	{
 		fvec[i] = pow(err(i, 0), 2) + pow(err(i, 1), 2) + pow(err(i, 2), 2);
@@ -163,10 +163,10 @@ Eigen::Matrix4f LM6DOF::computeTransformMatrix(Eigen::VectorXf& tf)
 	x = tf(0);
 	y = tf(1);
 	z = tf(2);
-	X = tf(3)*coeef_;
-	Y = tf(4)*coeef_;
-	Z = tf(5)*coeef_;
-	
+	X = tf(3) * coeef_;
+	Y = tf(4) * coeef_;
+	Z = tf(5) * coeef_;
+
 	/*******************************
 	x y z X Y Z
 	cosx*cosz           sinx*siny*cosz-cosx*sinz        cosx*siny*cosz+sinx*sinz          X
@@ -177,7 +177,7 @@ Eigen::Matrix4f LM6DOF::computeTransformMatrix(Eigen::VectorXf& tf)
 
 	//row 1
 	T(0, 0) = cos(x) * cos(z);
-	T(0, 1) = sin(x) * sin(y) * cos(z) - cos(x)* sin(z);
+	T(0, 1) = sin(x) * sin(y) * cos(z) - cos(x) * sin(z);
 	T(0, 2) = cos(x) * sin(y) * cos(z) + sin(x) * sin(z);
 	T(0, 3) = X;
 
@@ -190,9 +190,9 @@ Eigen::Matrix4f LM6DOF::computeTransformMatrix(Eigen::VectorXf& tf)
 	//row 3
 	T(2, 0) = -sin(y);
 	T(2, 1) = sin(x) * cos(y);
-	T(2, 2) = cos(x)* cos(y);
+	T(2, 2) = cos(x) * cos(y);
 	T(2, 3) = Z;
-	
+
 	//row 4
 	T(3, 0) = 0;
 	T(3, 1) = 0;
@@ -204,7 +204,6 @@ Eigen::Matrix4f LM6DOF::computeTransformMatrix(Eigen::VectorXf& tf)
 
 bool ModelTest_LM6DOF()
 {
-
 	//Build a transform matrix
 	Eigen::Matrix4f transform_matrix(Eigen::Matrix4f::Identity());
 
@@ -223,53 +222,55 @@ bool ModelTest_LM6DOF()
 
 	Eigen::MatrixXf src_t, target_t;
 	Eigen::Vector4f src_tmp;
-	
+
 	int data_size(20);
 	src_t.resize(data_size, 4);
 	target_t.resize(data_size, 4);
 
 	srand(int(time(0)));//Set seed to get random number.
-
-	for (int i(0); i < data_size;++i)
+	int times_t(100);
+	while (times_t > 0)
 	{
-		src_tmp(0) = double(Random(1000)) / 500.0;
-		src_tmp(1) = double(Random(1000)) / 500.0;
-		src_tmp(2) = double(Random(1000)) / 500.0;
-		src_tmp(3) = 1.0;
-
-		src_t.row(i) = src_tmp;
-
-	}
-	target_t = transform_matrix * src_t.transpose();//src_t * transform_matrix;
-	for (int j(0); j < data_size;++j)
-	{
-		for (int i(0); i < 4;++i)
+		for (int i(0); i < data_size; ++i)
 		{
-			//target_t(j, i) += (double(Random(2000)) / 4000 - 0.25);
+			src_tmp(0) = double(Random(1000)) / 500.0;
+			src_tmp(1) = double(Random(1000)) / 500.0;
+			src_tmp(2) = double(Random(1000)) / 500.0;
+			src_tmp(3) = 1.0;
+
+			src_t.row(i) = src_tmp;
 		}
+		target_t = transform_matrix * src_t.transpose();//src_t * transform_matrix;
+		for (int j(0); j < data_size; ++j)
+		{
+			for (int i(0); i < 4; ++i)
+			{
+				target_t(j, i) += (double(Random(2000)) / 4000 - 0.25);
+			}
+		}
+		//Compute transform
+		Eigen::Matrix4f solveMatrix(Eigen::Matrix4f::Identity());
+		LM6DOF func(src_t.rows(), src_t, target_t);
+		Eigen::LevenbergMarquardt<LM6DOF, float> lm(func);
+
+
+		Eigen::VectorXf x;
+		x.resize(6);
+		for (int k(0); k < 6; ++k)
+		{
+			x(k) = 0.0;
+		}
+
+		lm.minimize(x);
+		solveMatrix = func.computeTransformMatrix(x);
+
+		std::cout << "transfomr matrix:" << std::endl;
+		std::cout << transform_matrix << std::endl;
+
+		std::cout << "solve matrix:" << std::endl;
+		std::cout << solveMatrix << std::endl;
+		times_t--;
 	}
-	//Compute transform
-	Eigen::Matrix4f solveMatrix(Eigen::Matrix4f::Identity());
-	LM6DOF func(src_t.rows(), src_t,target_t);
-	Eigen::LevenbergMarquardt<LM6DOF, float> lm(func);
-
-
-	Eigen::VectorXf x;
-	x.resize(6);
-	for (int k(0); k < 6;++k)
-	{
-		x(k) = 0.0;
-	}
-
-	lm.minimize(x);
-	solveMatrix = func.computeTransformMatrix(x);
-
-	std::cout << "transfomr matrix:" << std::endl;
-	std::cout << transform_matrix << std::endl;
-
-	std::cout << "solve matrix:" << std::endl;
-	std::cout << solveMatrix << std::endl;
-
 
 
 	//templete

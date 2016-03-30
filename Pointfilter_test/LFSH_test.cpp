@@ -47,7 +47,7 @@ int main()
 
 	//ModelTest_LFSH();   // pase?
 
-	ModelTest_LM6DOF();
+	//ModelTest_LM6DOF();	 // pase
 
 
 
