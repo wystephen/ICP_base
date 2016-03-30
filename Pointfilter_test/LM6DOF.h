@@ -23,7 +23,7 @@ public:
 		target_.resize(target.rows(), target.cols());
 		*src_ptr_ = in;
 		*target_ptr_ = target;
-		epsfcn = 0.0001;
+		epsfcn = 0.000001;
 	}
 
 	~LM6DOF();
@@ -54,7 +54,7 @@ inline int LM6DOF::operator()(const Eigen::VectorXf& x, Eigen::VectorXf& fvec)
 	
 	tr = computeTransformMatrix(t_x);
 	Eigen::MatrixXf err(src_.rows(), src_.cols());
-	err = *src_ptr_ * tr - *target_ptr_;
+	err = tr * (src_ptr_->transpose() ) - (*target_ptr_);  //Matrix multi.....
 	for (int i(0); i < err.rows(); ++i)
 	{
 		fvec[i] = pow(err(i, 0), 2) + pow(err(i, 1), 2) + pow(err(i, 2), 2);
@@ -78,10 +78,12 @@ inline int LM6DOF::df(const Eigen::VectorXf& x, Eigen::MatrixXf& jac)
 	for (int j(0); j < n; ++j)
 	{
 		h = eps * abs(tx[j]);
-		if (abs(h - 0.0) < 0.00001)
+		if (abs(h) < 0.000001)
 		{
 			h = eps;
 		}
+		h = abs(h);
+
 		tx[j] += h;
 		operator()(tx, val2);
 		nfev++;
@@ -90,6 +92,7 @@ inline int LM6DOF::df(const Eigen::VectorXf& x, Eigen::MatrixXf& jac)
 		nfev++;
 		tx[j] = x[j];
 		jac.col(j) = (val2 - val1) / (2 * h);
+		//std::cout << jac << std::endl;
 	}
 	return 0;
 }
@@ -100,7 +103,7 @@ inline LM6DOF::Vector6f LM6DOF::valueCondition(Vector6f tf)
 	{
 		if (tf(i) < 0.0)
 		{
-			tf(i) += int(abs(tf(i) / PI)) * PI;
+			//tf(i) += int(abs(tf(i) / PI)) * PI;
 		}
 	}
 	return tf;
@@ -110,7 +113,7 @@ Eigen::Matrix4f LM6DOF::computeTransformMatrix(Eigen::VectorXf& tf)
 {
 	tf = valueCondition(tf);
 	Eigen::Matrix4f T;
-	double coeef_(6.0);
+	double coeef_(1);
 	T = Eigen::Matrix4f::Identity();
 	/****************************************************************** /
 	Eigen::Matrix4f tmp_T(Eigen::Matrix4f::Identity());
@@ -176,7 +179,7 @@ Eigen::Matrix4f LM6DOF::computeTransformMatrix(Eigen::VectorXf& tf)
 	T(0, 0) = cos(x) * cos(z);
 	T(0, 1) = sin(x) * sin(y) * cos(z) - cos(x)* sin(z);
 	T(0, 2) = cos(x) * sin(y) * cos(z) + sin(x) * sin(z);
-	T(0, 4) = X;
+	T(0, 3) = X;
 
 	//row 2
 	T(1, 0) = cos(y) * sin(z);
@@ -212,6 +215,10 @@ bool ModelTest_LM6DOF()
 	transform_matrix(1, 0) = sin(theta);
 	transform_matrix(1, 1) = cos(theta);
 
+	transform_matrix(0, 3) = 1.0;
+	transform_matrix(1, 3) = 1.0;
+	transform_matrix(2, 3) = 0.7;
+
 	//New Point src and target.
 
 	Eigen::MatrixXf src_t, target_t;
@@ -233,8 +240,14 @@ bool ModelTest_LM6DOF()
 		src_t.row(i) = src_tmp;
 
 	}
-	target_t = src_t * transform_matrix;
-
+	target_t = transform_matrix * src_t.transpose();//src_t * transform_matrix;
+	for (int j(0); j < data_size;++j)
+	{
+		for (int i(0); i < 4;++i)
+		{
+			//target_t(j, i) += (double(Random(2000)) / 4000 - 0.25);
+		}
+	}
 	//Compute transform
 	Eigen::Matrix4f solveMatrix(Eigen::Matrix4f::Identity());
 	LM6DOF func(src_t.rows(), src_t,target_t);
@@ -245,7 +258,7 @@ bool ModelTest_LM6DOF()
 	x.resize(6);
 	for (int k(0); k < 6;++k)
 	{
-		x(k) = 0.01;
+		x(k) = 0.0;
 	}
 
 	lm.minimize(x);
