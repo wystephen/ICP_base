@@ -52,6 +52,10 @@ namespace pcl
 
 		bool compute(pcl::PointCloud<PointOutT>& output);
 
+		double getModelSize()
+		{
+			return pow(model_volume_ / 3.1415926, 0.333333);
+		}
 
 	private:
 		static double dot(Eigen::Vector3f x, Eigen::Vector3f y);

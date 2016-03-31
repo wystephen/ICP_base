@@ -8,6 +8,10 @@
 
 #include "LM6DOF.h"
 
+#include <pcl/registration/registration.h>
+#include <pcl/registration/ia_ransac.h>
+
+
 
 //For random generation
 #include <stdlib.h>
@@ -45,6 +49,21 @@ namespace pcl
 		{
 			srand(int(time(0)));//Set seed to get random number.
 
+			//set std transform matrix
+			Eigen::Matrix4f transform_matrix = Eigen::Matrix4f::Identity();
+
+			double theta = M_PI / 4.0/1.0;
+
+			transform_matrix(0, 0) = cos(theta);
+			transform_matrix(0, 1) = -sin(theta);
+			transform_matrix(1, 0) = sin(theta);
+			transform_matrix(1, 1) = cos(theta);
+
+			transform_matrix(0, 3) = 4;
+			transform_matrix(1, 3) = 4;
+
+			std_matrix_ = transform_matrix;
+
 			compress_size_ = 0.01;
 
 #ifdef _DEBUG
@@ -62,10 +81,10 @@ namespace pcl
 
 			d_tua_ = 1.3;//
 
-			N_iter = 1000;
+			N_iter = 3000;
 
-			x_ = 30;
-			d_min_ = 0.1;
+			x_ = 60;
+			d_min_ = 0.05;	//invaild,change in feature extraction function.
 		}
 
 
@@ -136,6 +155,7 @@ namespace pcl
 
 		boost::shared_ptr<pcl::kdtree_feature<FeatureType>> kd_ptr_;
 
+		Eigen::Matrix4f std_matrix_;
 
 	private:
 
@@ -177,7 +197,7 @@ namespace pcl
 
 		//Extraction  feature
 		FeatureExtraction();
-
+		/**********************************/
 		//Correspondence generation	 and us
 		CorrespondeceGeneration();
 
@@ -185,6 +205,33 @@ namespace pcl
 		OSAC_main(transform_matrix);
 		std::cout << "osac_main_transform_matrix:" << std::endl;
 		std::cout << transform_matrix << std::endl;
+		/*************************************/
+
+		//use correspondence in pcl
+		/*********************** /
+		pcl::registration::CorrespondenceEstimation<pcl::LFSHSignature, pcl::LFSHSignature, float> 
+			corr_estimation;
+		corr_estimation.setInputCloud(src_feature_ptr_);
+		corr_estimation.setInputTarget()
+		corr_estimation.setSearchMethodTarget(kd_ptr_);
+		pcl::Correspondence corr_data;
+		corr_estimation.determineCorrespondences(corr_data,0.1);
+		/******************************************/
+		//    pcl::SampleConsensusInitialAlignment<pcl::PointXYZ, pcl::PointXYZ, pcl::FPFHSignature33> sac_ia_;
+
+
+		pcl::SampleConsensusInitialAlignment<pcl::PointXYZ, pcl::PointXYZ, pcl::LFSHSignature> sac_ia;
+		//÷ÿ‘ÿ KdTreeFLANN°§°§°§°§£ª°∂LFSHSignature£ª
+		//sac_ia.setInputSource(src_compress_ptr_);
+		//sac_ia.setSourceFeatures(src_feature_ptr_);
+		//sac_ia.setInputTarget(target_compress_ptr_);
+		//sac_ia.setTargetFeatures(target_feature_ptr_);
+
+		pcl::PointCloud<pcl::PointXYZ> re;
+		//sac_ia.align(re);
+		//transform_matrix = sac_ia.getFinalTransformation();
+
+	
 
 		return true;
 	}
@@ -406,6 +453,10 @@ namespace pcl
 
 		double min_D_avg(0);
 		double min_err(1000);
+
+		double min_matrix_dis(100000000);
+		Eigen::Matrix4f min_matrix;
+
 		for (int i(0); i < N_iter; ++i)
 		{
 			Eigen::MatrixXf source(x_, 4);
@@ -466,7 +517,7 @@ namespace pcl
 				min_D_avg = the_D_avg;
 				transfomr_matrix = tmp_transform;
 			}
-			else if ((the_D_avg < min_D_avg) || (sum / x_ < min_err))//&& sum/x_ > 0.001))
+			else if ((the_D_avg < min_D_avg))//|| (sum / x_ < min_err))//&& sum/x_ > 0.001))
 			{
 				min_err = sum / x_; //
 
@@ -480,9 +531,29 @@ namespace pcl
 				}
 				min_D_avg = the_D_avg;
 				transfomr_matrix = tmp_transform;
+
+				double t_dis(0.0);
+				double t_dis_d1(0.0), t_dis_d2(0.0);
+				for (int ti(0); ti < 4;++ti)
+				{
+					for (int tj(0); tj < 4;++tj)
+					{
+						t_dis += pow(tmp_transform(ti, tj)-std_matrix_(ti, tj),2);
+
+					}
+				}
+				
+				if (t_dis < min_matrix_dis)
+				{
+					min_matrix = tmp_transform;
+					min_matrix_dis = t_dis;
+				}
+
 			}
 		}
-
+		std::cout << std_matrix_ << std::endl;
+		std::cout << "min matrix" << std::endl;
+		std::cout << min_matrix << std::endl;
 		std::cout << " min errr:" << min_err << std::endl;
 		std::cout << "min D avg:" << min_D_avg << std::endl;
 
@@ -656,6 +727,8 @@ namespace pcl
 		lfsh_extraction.setInputCloud(target_compress_ptr_);
 		lfsh_extraction.compute(*target_feature_ptr_);
 
+		d_min_ = lfsh_extraction.getModelSize() * 2/ x_;	 //TODO:self adjust d_min_ use Model_size
+		std::cout << "d_min_:" << d_min_ << std::endl;
 		kd_ptr_->setInputCloud(target_feature_ptr_);
 
 		return true;

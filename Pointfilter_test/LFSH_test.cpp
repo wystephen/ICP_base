@@ -42,7 +42,7 @@ bool PointCloudTransform(pcl::PointCloud<pcl::PointXYZ>& src, pcl::PointCloud<pc
 int main()
 {
 
-	/*********************************************************************************************/
+	/********************************************************************************************* /
 	//Model test for LFSH
 
 	//ModelTest_LFSH();   // pase?
@@ -81,10 +81,14 @@ int main()
 	pcl::PointCloud<pcl::LFSHSignature>::Ptr p_src_lpfh_ptr(new pcl::PointCloud<pcl::LFSHSignature>);
 	pcl::PointCloud<pcl::LFSHSignature>::Ptr p_target_lpfh_ptr(new pcl::PointCloud<pcl::LFSHSignature>);
 
+	pcl::PointCloud<pcl::PointXYZ>::Ptr p_icp_ptr(new pcl::PointCloud<pcl::PointXYZ>);
 
-	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture5_B.pcd", *p_src_ptr);
-	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture1_B.pcd", *p_target_ptr);
-	pcl::io::loadPCDFile<pcl::PointXYZ>("1.pcd", *pc);
+
+	pcl::io::loadPCDFile<pcl::PointXYZ>("table_scene_lms400_downsampled.pcd", *p_src_ptr);
+	//pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture5_B.pcd", *p_src_ptr);
+
+	//pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture1_B.pcd", *p_target_ptr);
+	//pcl::io::loadPCDFile<pcl::PointXYZ>("1.pcd", *pc);
 
 
 
@@ -135,12 +139,16 @@ int main()
 	transform_matrix(1, 0) = sin(theta);
 	transform_matrix(1, 1) = cos(theta);
 	
-	transform_matrix(0, 3) = 1;
-	transform_matrix(1, 3) = 1;
+	transform_matrix(0, 3) = 4;
+	transform_matrix(1, 3) = 4;
+
+	
+
 
 	pcl::transformPointCloud(*p_src_ptr, *p_target_ptr, transform_matrix);
 	boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> p_src_transform(new pcl::PointCloud<pcl::PointXYZ>);
 
+	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
 
 	viwer_ptr->addCoordinateSystem(1.0);
 	for (int i(0); i < 30001; i++)
@@ -148,7 +156,7 @@ int main()
 		pcl::OSAC<pcl::PointXYZ, pcl::LFSHSignature> osac_estimation;
 		viwer_ptr->removeAllPointClouds();
 		
-		osac_estimation.setCompressSize(0.05);
+		osac_estimation.setCompressSize(0.08);
 		osac_estimation.setNumberOfCorr(3);
 		osac_estimation.setAlpha(1.5);
 
@@ -160,15 +168,25 @@ int main()
 		osac_estimation.compute(*transform_matrix_ptr);	 
 
 		pcl::transformPointCloud(*p_src_ptr, *p_src_transform, *transform_matrix_ptr);
+
+		icp.setInputSource(p_src_transform);
+		icp.setInputTarget(p_target_ptr);
+		icp.align(*p_icp_ptr);
+
 		//pcl::transformPointCloud(*p_target_ptr, *p_src_transform, *transform_matrix_ptr);
 		//PointCloudTransform(*p_src_ptr, *p_src_transform, *transform_matrix_ptr);	
-		//红色：目标     绿色：转换后         蓝色：原始											   
+		//红色：目标     绿色：转换后         蓝色：原始	other:icp 										   
 		pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color_src(p_src_ptr, 2, 2, 222);
 		viwer_ptr->addPointCloud(p_src_ptr, single_color_src, "src");
 		pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color_transform(p_src_transform, 0, 222, 22);
 		viwer_ptr->addPointCloud(p_src_transform, single_color_transform, "transform");
 		pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color_target(p_target_ptr, 222, 2, 2);
 		viwer_ptr->addPointCloud(p_target_ptr, single_color_target,"target");
+		pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color_icp(p_icp_ptr, 100, 100, 100);
+		viwer_ptr->addPointCloud(p_icp_ptr, single_color_icp, "icp");
+
+		std::cout << "-------------------------------------------------------------------------------------------" << std::endl;
+
 		viwer_ptr->spinOnce(1000);
 		//Sleep(4);
 		//int a(0);
