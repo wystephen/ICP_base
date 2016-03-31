@@ -49,7 +49,13 @@ int main()
 
 	//ModelTest_LM6DOF();	 // pase
 
+	pcl::OSAC<pcl::PointXYZ, pcl::LFSHSignature> osac_test;
 
+	osac_test.setCompressSize(0.02);
+	osac_test.setNumberOfCorr(3);
+	osac_test.setAlpha(1.5);
+
+	//osac_test.ModelTest_OSAC();
 
 
 
@@ -129,8 +135,8 @@ int main()
 	transform_matrix(1, 0) = sin(theta);
 	transform_matrix(1, 1) = cos(theta);
 	
-	//transform_matrix(0, 3) = 1;
-	//transform_matrix(1, 3) = 1;
+	transform_matrix(0, 3) = 1;
+	transform_matrix(1, 3) = 1;
 
 	pcl::transformPointCloud(*p_src_ptr, *p_target_ptr, transform_matrix);
 	boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> p_src_transform(new pcl::PointCloud<pcl::PointXYZ>);
@@ -142,8 +148,8 @@ int main()
 		pcl::OSAC<pcl::PointXYZ, pcl::LFSHSignature> osac_estimation;
 		viwer_ptr->removeAllPointClouds();
 		
-		osac_estimation.setCompressSize(0.02);
-		osac_estimation.setNumberOfCorr(5);
+		osac_estimation.setCompressSize(0.05);
+		osac_estimation.setNumberOfCorr(3);
 		osac_estimation.setAlpha(1.5);
 
 		osac_estimation.setSourceCloud(p_src_ptr);

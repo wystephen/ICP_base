@@ -17,7 +17,6 @@
 #define BIG_FLAT 99999999.0f
 
 
-
 //As Kd-tree algorithm in pcl maybe can't use to search LFSHSignature type.
 namespace pcl
 {
@@ -65,8 +64,8 @@ namespace pcl
 
 			N_iter = 1000;
 
-			x_ = 100;
-			d_min_ = 0.13;
+			x_ = 30;
+			d_min_ = 0.1;
 		}
 
 
@@ -82,6 +81,8 @@ namespace pcl
 		bool setSourceCloud(const PointCloudPtr source);
 
 		bool setTargetCloud(const PointCloudPtr target);
+
+		bool ModelTest_OSAC();
 
 		double getCompressSize() const;
 		double setCompressSize(double size);
@@ -180,6 +181,7 @@ namespace pcl
 		//Correspondence generation	 and us
 		CorrespondeceGeneration();
 
+		//OSAC 
 		OSAC_main(transform_matrix);
 		std::cout << "osac_main_transform_matrix:" << std::endl;
 		std::cout << transform_matrix << std::endl;
@@ -220,6 +222,7 @@ namespace pcl
 			return false;
 		}
 	}
+
 
 	template <typename PointSourceT, typename FeatureType>
 	double OSAC<PointSourceT, FeatureType>::getCompressSize() const
@@ -418,7 +421,7 @@ namespace pcl
 			tmp_transform = TransformSolve(source, target);
 
 			//transform	
-			source = tmp_transform * source.transpose();  //TODO:
+			source = tmp_transform * source.transpose(); //TODO:
 
 			/********************************************/
 			Eigen::MatrixXf err(x_, 4);
@@ -463,7 +466,7 @@ namespace pcl
 				min_D_avg = the_D_avg;
 				transfomr_matrix = tmp_transform;
 			}
-			else if ((the_D_avg < min_D_avg)|| (sum/x_ < min_err ))//&& sum/x_ > 0.001))
+			else if ((the_D_avg < min_D_avg) || (sum / x_ < min_err))//&& sum/x_ > 0.001))
 			{
 				min_err = sum / x_; //
 
@@ -657,5 +660,78 @@ namespace pcl
 
 		return true;
 	}
+
+	template <typename PointSourceT, typename FeatureType>
+	bool OSAC<PointSourceT, FeatureType>::ModelTest_OSAC()
+	{
+		//Load Data
+		pcl::PointCloud<pcl::PointXYZ>::Ptr p_src_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+		pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture5_B.pcd", *p_src_ptr);
+
+		//Transform matrix
+		Eigen::Matrix4f transform_matrix = Eigen::Matrix4f::Identity();
+
+		double theta = M_PI / 4.0 / 1.0;
+
+		transform_matrix(0, 0) = cos(theta);
+		transform_matrix(0, 1) = -sin(theta);
+		transform_matrix(1, 0) = sin(theta);
+		transform_matrix(1, 1) = cos(theta);
+
+		//Compress
+		double leaf_size(0.025);
+		compress_grid_.setLeafSize(leaf_size,leaf_size,leaf_size);
+
+		compress_grid_.setInputCloud(p_src_ptr);
+		compress_grid_.filter(*src_compress_ptr_);
+		//Transform
+		pcl::transformPointCloud(*src_compress_ptr_, *target_compress_ptr_, transform_matrix);
+
+		std::cout << "Is src size = target size:" << 
+			(src_compress_ptr_->size() == target_compress_ptr_->size()) << std::endl;
+
+////////function in compute();
+		correspon_vecotr_.clear();
+
+		//Extraction  feature
+		FeatureExtraction();
+
+
+		//Correspondence generation	 and us
+		CorrespondeceGeneration();
+
+		//Test correspondence
+		double threold_dis(0.021);
+		threold_dis = threold_dis * threold_dis;
+		int good_corre(0);
+		for (int i(0); i < correspon_vecotr_.size();++i)
+		{
+			bool Isgood(false);
+			pcl::PointXYZ p_s;
+			p_s = target_compress_ptr_->at(correspon_vecotr_[i].src_index_);
+			for (int j(0); j < correspon_vecotr_[i].target_index_.size();++j)
+			{
+				pcl::PointXYZ p_t(target_compress_ptr_->at(correspon_vecotr_[i].target_index_[j]));
+				if ((pow(p_t.x-p_s.x,2)+pow(p_t.y-p_s.y,2)+pow(p_t.z-p_s.z,2))<threold_dis)
+				{
+					Isgood = true;
+				}
+			}
+			if (Isgood) good_corre++;
+		}
+		std::cout << "%:" << good_corre <<":"<< correspon_vecotr_.size() << std::endl;
+
+		//OSAC 
+		//OSAC_main(transform_matrix);
+		std::cout << "osac_main_transform_matrix:" << std::endl;
+		std::cout << transform_matrix << std::endl;
+		
+		std::string a;
+		std::cin >> a;
+		return true;
+	}
 }
+
+
+
 
