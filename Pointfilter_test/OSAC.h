@@ -197,7 +197,7 @@ namespace pcl
 
 		//Extraction  feature
 		FeatureExtraction();
-		/**********************************/
+		/********************************** /
 		//Correspondence generation	 and us
 		CorrespondeceGeneration();
 
@@ -219,18 +219,41 @@ namespace pcl
 		/******************************************/
 		//    pcl::SampleConsensusInitialAlignment<pcl::PointXYZ, pcl::PointXYZ, pcl::FPFHSignature33> sac_ia_;
 
-
-		pcl::SampleConsensusInitialAlignment<pcl::PointXYZ, pcl::PointXYZ, pcl::LFSHSignature> sac_ia;
+		pcl::PointCloud<pcl::FPFHSignature33>::Ptr src_fpfh_ptr(new pcl::PointCloud<pcl::FPFHSignature33>);
+		pcl::PointCloud<pcl::FPFHSignature33>::Ptr target_fpfh_ptr(new pcl::PointCloud<pcl::FPFHSignature33>);
+		src_fpfh_ptr->resize(src_feature_ptr_->size());
+		target_fpfh_ptr->resize(target_feature_ptr_->size());
+		for (int i(0); i < src_feature_ptr_->size();++i)
+		{
+			for (int j(0); j < 30;++j)
+			{
+				src_fpfh_ptr->at(i).histogram[j] = src_feature_ptr_->at(i).histogram[j];
+			}
+			src_fpfh_ptr->at(i).histogram[30] = 0.0;
+			src_fpfh_ptr->at(i).histogram[31] = 0.0;
+			src_fpfh_ptr->at(i).histogram[32] = 0.0;
+		}
+		for (int i(0); i < target_feature_ptr_->size();++i)
+		{
+			for (int j(0); j < 30;++j)
+			{
+				target_fpfh_ptr->at(i).histogram[j] = target_feature_ptr_->at(i).histogram[j];
+			}
+			target_fpfh_ptr->at(i).histogram[30] = 0.0;
+			target_fpfh_ptr->at(i).histogram[31] = 0.0;
+			target_fpfh_ptr->at(i).histogram[32] = 0.0;
+		}
+		pcl::SampleConsensusInitialAlignment<pcl::PointXYZ, pcl::PointXYZ, pcl::FPFHSignature33> sac_ia;
 		//÷ÿ‘ÿ KdTreeFLANN°§°§°§°§£ª°∂LFSHSignature£ª
-		//sac_ia.setInputSource(src_compress_ptr_);
-		//sac_ia.setSourceFeatures(src_feature_ptr_);
-		//sac_ia.setInputTarget(target_compress_ptr_);
-		//sac_ia.setTargetFeatures(target_feature_ptr_);
+		sac_ia.setInputSource(src_compress_ptr_);
+		sac_ia.setSourceFeatures(src_fpfh_ptr);
+		sac_ia.setInputTarget(target_compress_ptr_);
+		sac_ia.setTargetFeatures(target_fpfh_ptr);
 
 		pcl::PointCloud<pcl::PointXYZ> re;
-		//sac_ia.align(re);
-		//transform_matrix = sac_ia.getFinalTransformation();
-
+		sac_ia.align(re);
+		transform_matrix = sac_ia.getFinalTransformation();
+		std::cout << transform_matrix << std::endl;
 	
 
 		return true;

@@ -84,8 +84,8 @@ int main()
 	pcl::PointCloud<pcl::PointXYZ>::Ptr p_icp_ptr(new pcl::PointCloud<pcl::PointXYZ>);
 
 
-	pcl::io::loadPCDFile<pcl::PointXYZ>("table_scene_lms400_downsampled.pcd", *p_src_ptr);
-	//pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture5_B.pcd", *p_src_ptr);
+	//pcl::io::loadPCDFile<pcl::PointXYZ>("table_scene_lms400_downsampled.pcd", *p_src_ptr);
+	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture5_B.pcd", *p_src_ptr);
 
 	//pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture1_B.pcd", *p_target_ptr);
 	//pcl::io::loadPCDFile<pcl::PointXYZ>("1.pcd", *pc);
