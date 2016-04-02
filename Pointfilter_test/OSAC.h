@@ -243,12 +243,15 @@ namespace pcl
 			target_fpfh_ptr->at(i).histogram[31] = 0.0;
 			target_fpfh_ptr->at(i).histogram[32] = 0.0;
 		}
-		pcl::SampleConsensusInitialAlignment<pcl::PointXYZ, pcl::PointXYZ, pcl::FPFHSignature33> sac_ia;
+		//pcl::SampleConsensusInitialAlignment<pcl::PointXYZ, pcl::PointXYZ, pcl::FPFHSignature33> sac_ia;
+		pcl::SampleConsensusInitialAlignment<pcl::PointXYZ, pcl::PointXYZ, pcl::LFSHSignature> sac_ia;
 		//÷ÿ‘ÿ KdTreeFLANN°§°§°§°§£ª°∂LFSHSignature£ª
 		sac_ia.setInputSource(src_compress_ptr_);
-		sac_ia.setSourceFeatures(src_fpfh_ptr);
+		//sac_ia.setSourceFeatures(src_fpfh_ptr);
+		sac_ia.setSourceFeatures(src_feature_ptr_);
 		sac_ia.setInputTarget(target_compress_ptr_);
-		sac_ia.setTargetFeatures(target_fpfh_ptr);
+		//sac_ia.setTargetFeatures(target_fpfh_ptr);
+		sac_ia.setTargetFeatures(target_feature_ptr_);
 
 		pcl::PointCloud<pcl::PointXYZ> re;
 		sac_ia.align(re);

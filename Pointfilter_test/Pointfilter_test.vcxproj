@@ -93,6 +93,7 @@
     <ClInclude Include="LFSHSignature.h" />
     <ClInclude Include="LM6DOF.h" />
     <ClInclude Include="OSAC.h" />
+    <ClInclude Include="RANSAC.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

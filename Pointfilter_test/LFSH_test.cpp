@@ -87,7 +87,7 @@ int main()
 	//pcl::io::loadPCDFile<pcl::PointXYZ>("table_scene_lms400_downsampled.pcd", *p_src_ptr);
 	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture5_B.pcd", *p_src_ptr);
 
-	//pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture1_B.pcd", *p_target_ptr);
+	pcl::io::loadPCDFile<pcl::PointXYZ>("write_capture1_B.pcd", *p_target_ptr);
 	//pcl::io::loadPCDFile<pcl::PointXYZ>("1.pcd", *pc);
 
 
@@ -145,7 +145,7 @@ int main()
 	
 
 
-	pcl::transformPointCloud(*p_src_ptr, *p_target_ptr, transform_matrix);
+	//pcl::transformPointCloud(*p_src_ptr, *p_target_ptr, transform_matrix);
 	boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> p_src_transform(new pcl::PointCloud<pcl::PointXYZ>);
 
 	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
@@ -172,6 +172,9 @@ int main()
 		icp.setInputSource(p_src_transform);
 		icp.setInputTarget(p_target_ptr);
 		icp.align(*p_icp_ptr);
+		std::cout << "icp matrix:" << std::endl;
+
+		std::cout << icp.getFinalTransformation() << std::endl;
 
 		//pcl::transformPointCloud(*p_target_ptr, *p_src_transform, *transform_matrix_ptr);
 		//PointCloudTransform(*p_src_ptr, *p_src_transform, *transform_matrix_ptr);	
