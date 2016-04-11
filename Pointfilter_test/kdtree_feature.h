@@ -117,5 +117,15 @@ private:
 		}
 		return N;
 	}
+
+
+	//specialization KdTreeFLANN Class
+	/*         * /
+	template <>
+	KdTreeFLANN<LFSHSignature, flann::L2_Simple<float>>
+	{
+
+	};
+	/********************************************/
 }
 
