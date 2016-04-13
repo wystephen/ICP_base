@@ -16,6 +16,8 @@
 
 #include "kdtree_feature.h"
 
+#include "RANSAC.h"
+
 #define COMPRESS_SIZE 0.051
 
 bool PointCloudTransform(pcl::PointCloud<pcl::PointXYZ>& src, pcl::PointCloud<pcl::PointXYZ> & target,
@@ -149,6 +151,8 @@ int main()
 	boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> p_src_transform(new pcl::PointCloud<pcl::PointXYZ>);
 
 	pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+
+	//pcl::RANSAC<pcl::PointXYZ, pcl::LFSHSignature> ransac;
 
 	viwer_ptr->addCoordinateSystem(1.0);
 	for (int i(0); i < 30001; i++)

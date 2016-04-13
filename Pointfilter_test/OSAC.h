@@ -11,6 +11,8 @@
 #include <pcl/registration/registration.h>
 #include <pcl/registration/ia_ransac.h>
 
+#include "RANSAC.h"
+
 
 
 //For random generation
@@ -219,7 +221,7 @@ namespace pcl
 		corr_estimation.setSearchMethodTarget(kd_ptr_);
 		pcl::Correspondence corr_data;
 		corr_estimation.determineCorrespondences(corr_data,0.1);
-		/******************************************/
+		/****************************************** /
 		//    pcl::SampleConsensusInitialAlignment<pcl::PointXYZ, pcl::PointXYZ, pcl::FPFHSignature33> sac_ia_;
 
 		pcl::PointCloud<pcl::FPFHSignature33>::Ptr src_fpfh_ptr(new pcl::PointCloud<pcl::FPFHSignature33>);
@@ -262,6 +264,15 @@ namespace pcl
 		transform_matrix = sac_ia.getFinalTransformation();
 		std::cout << transform_matrix << std::endl;
 		/**********************/
+		pcl::RANSAC<PointSourceT, FeatureType> ransac;
+		ransac.setData(*src_compress_ptr_,
+			*target_compress_ptr_,
+			*src_feature_ptr_,
+			*target_feature_ptr_,
+			*kd_ptr_);	 
+		//Input Date to ransac class which is similar to the ransac algorithm in PCL
+
+
 
 		return true;
 	}
