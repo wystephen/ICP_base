@@ -271,7 +271,7 @@ namespace pcl
 			*target_feature_ptr_,
 			*kd_ptr_);	 
 		//Input Date to ransac class which is similar to the ransac algorithm in PCL
-
+		ransac.compute(transform_matrix);
 
 
 		return true;
